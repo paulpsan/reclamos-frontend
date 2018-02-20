@@ -1,0 +1,70 @@
+<app-header></app-header>
+<!-- Example single danger button -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-8" style="text-align: center">
+        </div>
+        <div class="col-md-4" style="text-align: right">
+          <button mat-button (click)="adicionar()" color="primary" *ngIf="identity.rol=='ADMIN'||identity.rol=='AGENTE'">
+            <mat-icon mat-list-icon>add</mat-icon>adicionar
+          </button>
+        </div>
+      </div>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive">
+        <thead class="thead-default">
+          <tr>
+            <th>Nro.</th>
+            <th>Unidad Educativa</th>
+            <th>Departamento</th>
+            <th>Distrito</th>
+            <th>Direccion detallada</th>
+            <th>Detalle de Reclamo/Nombre de Estudiante</th>
+            <th>De Quien Recibió Información</th>
+            <th>Nombre Denunciante</th>
+            <th>Telefono Denunciante</th>
+            <th>Fecha Reclamo</th>
+            <th>Fecha Modificación</th>
+            <th>Canal</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th>Observaciones o Solución</th>
+            <th>Resuelto por</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reclamo of data; index as i" [ngClass]="{red: reclamo.estado=='Registrado',yelow:reclamo.estado=='Procesado',green:reclamo.estado=='Resuelto'}">
+            <th>{{i+1}}</th>
+            <td>{{reclamo.unidad_educativa}}</td>
+            <td>{{reclamo.departamento}}</td>
+            <td>{{reclamo.distrito}}</td>
+            <td>{{reclamo.dir_detallada}}</td>
+            <td>{{reclamo.detalle_reclamo}}</td>
+            <td>{{reclamo.recive_informacion}}</td>
+            <td>{{reclamo.nombre_denunciante}}</td>
+            <td>{{reclamo.telefono_denunciante}}</td>
+            <td>{{reclamo.fecha_reclamo_formato}}</td>
+            <td>{{reclamo.fecha_modificacion_formato}}</td>
+            <td>{{reclamo.canal}}</td>
+            <td>{{reclamo.Usuario.usuario}}</td>
+            <td>{{reclamo.estado}}</td>
+            <td>{{reclamo.observaciones}}</td>
+            <td>{{reclamo.usuario_accion}}</td>
+            <td>
+              <button mat-button (click)="editar(reclamo)" color="primary" *ngIf="identity.rol=='ADMIN'||identity.rol=='AGENTE'||identity.rol=='SUPERVISOR'">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span class="enlaces">Editar</span>
+              </button>
+              <button mat-button (click)="eliminar(reclamo)" color="warn" *ngIf="identity.rol=='ADMIN'">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <span class="enlaces" style="color: red">Eliminar</span>
+              </button>
+            </td>
+          </tr>
+          <tbody>
+      </table>
+    </div>
+  </div>
+</div>

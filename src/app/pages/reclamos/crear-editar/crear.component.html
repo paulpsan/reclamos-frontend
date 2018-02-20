@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="row justify-content-md-center m-1">
+    <div class="card bg-light col-md-12 col-sm-12" style="padding: 0;">
+      <div class="card-header">Crear Nuevo Proyecto
+      </div>
+
+      <div class="card-body">
+
+        <!-- <form class="example-form"> -->
+          <div class="form-group row ml-2">
+            <div class="col-4">
+            <input type="text" (keyup.enter)="buscarUE(buscar,depa)" class="form-control" placeholder="Nombre de Unidad Educativa..." [(ngModel)]="buscar">
+          
+          </div>
+
+            <!-- <mat-form-field class="col-4">
+              <input matInput placeholder="Nombre de Unidad Educativa..." [value]="dep">
+            </mat-form-field> -->
+
+            <div class="col-3">
+              <select class="form-control" [(ngModel)]="depa">
+                <option [ngValue]="undefined" selected>--Departamento--</option>
+                <option *ngFor="let dep of departamentos" [value]="dep">{{dep}}</option>
+              </select>
+            </div>
+            <!-- <mat-form-field class="col-3">
+              <mat-select placeholder="Departamento" >
+                <mat-option *ngFor="let dep of departamentos" [value]="dep">
+                  {{dep}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <div class="col-3">
+              <button mat-button (click)="buscarUE(buscar,depa)" color="primary">
+                <mat-icon mat-list-icon>search</mat-icon>buscar
+              </button>
+              <button mat-button  (click)="limpiar()" color="primary">
+                limpiar
+              </button>
+              <!-- <a name="" id="" class="btn btn-primary" (click)="buscarUE( buscar )" role="button">buscar</a> -->
+            </div>
+          </div>
+        <!-- </form> -->
+        <div *ngIf="cargando">
+          <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">
+            <thead class="thead-inverse|thead-default">
+              <tr>
+                <th>Accion</th>
+                <th>Unidad Educativa</th>
+                <th>Departamento</th>
+                <th>Distrito</th>
+                <th>Direccion</th>
+                <th>Zona</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let UE of unidadesEducativas; index as i">
+                <td scope="row" (click)="cargarDatos(UE)">
+                  <button mat-button color="primary" (click)="cargarDatos(UE)">
+                    Aceptar
+                  </button>
+                </td>
+                <td>{{UE.des_ue}}</td>
+                <td>{{UE.des_departamento}}</td>
+                <td>{{UE.des_distrito}}</td>
+                <td>{{UE.direccion}}</td>
+                <td>{{UE.zona}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <form *ngIf="!cargando" novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Unidad Educativa</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Unidad Educativa" formControlName="unidad_educativa">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Departamento</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Departamento" formControlName="departamento">
+            </div>
+          </div>
+          <!-- <div class="form-group row">
+            <label class="col-2 col-form-label">Departamento</label>
+            <div class="col-10">
+              <select class="form-control" formControlName="departamento">
+                <option *ngFor="let dep of departamentos" [value]="dep">{{dep}}</option>
+              </select>
+            </div>
+          </div> -->
+
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Distrito</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Dirección Detallada</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Dirección Detallada" formControlName="dir_detallada">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Detalle De Reclamo / Nombre Del Estudiante</label>
+            <div class="col-10">
+              <textarea class="form-control" formControlName="detalle_reclamo" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">De Quien Recibe Información</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="De Quien Recibe Información" formControlName="recive_informacion">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre Del Denunciante</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Nombre Del Denunciante" formControlName="nombre_denunciante">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Telefono Del Denunciante</label>
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Telefono Del Denunciante" formControlName="telefono_denunciante">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Canal</label>
+            <div class="col-10">
+              <select class="form-control" formControlName="canal">
+                <option *ngFor="let canal of canales" [value]="canal">{{canal}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="form-group row">
+              <label class="col-2 col-form-label">Estado</label>
+              <div class="col-10">
+                <select class="form-control" formControlName="estado">
+                </select>
+                  <option *ngFor="let estado of estados"  [value]="estado">{{estado}}</option>
+              </div>
+            </div> -->
+
+          <!-- <button mat-button [disabled]="!userForm.valid" type="submit" color="primary"> -->
+          <div class="row justify-content-md-center m-1">
+            <button mat-button [disabled]="!userForm.valid" type="submit" color="primary">
+              <mat-icon mat-list-icon>done</mat-icon>
+              Guardar
+            </button>
+            <button mat-button routerLink="/reclamos" color="warn">
+              <mat-icon mat-list-icon>cancel</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

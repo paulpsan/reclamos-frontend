@@ -1,0 +1,19 @@
+.green {
+  background-color: rgb(222, 240, 219);
+}
+.red {
+  background-color: rgb(231, 210, 210);
+}
+.yelow {
+  background-color: rgb(234, 235, 201);
+}
+.contenido {
+  overflow: hidden; /* Escondemos la parte sobrante */
+  /* white-space: nowrap; Indicamos que no realice salto de linea si no cabe en la anchura indicada */
+  text-overflow: ellipsis; /* Ponemos los dos puntos */
+}
+th{
+    /* border: 1px solid blue; */
+    white-space: nowrap;
+    word-wrap: break-word;
+}

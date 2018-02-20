@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="row justify-content-md-center m-1">
+        <div class="card bg-light col-md-12 col-sm-12" style="padding: 0;">
+            <div class="card-header">Crear Nuevo Proyecto
+            </div>
+            <div class="card-body">
+                <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Unidad Educativa</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="unidad_educativa" formControlName="unidad_educativa">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Departamento</label>
+                        <div class="col-10">
+                            <select class="form-control" formControlName="departamento">
+                                <option *ngFor="let dep of departamentos">{{dep}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Distrito</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Dirección Detallada</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Dirección Detallada" formControlName="dir_detallada">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Detalle De Reclamo/Nombre Del Estudiante</label>
+                        <div class="col-10">
+                            <textarea class="form-control" formControlName="detalle_reclamo" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">De Quien Recibe Información</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="De Quien Recibe Información" formControlName="recive_informacion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Nombre Del Denunciante</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Nombre Del Denunciante" formControlName="nombre_denunciante">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Telefono Del Denunciante</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Telefono Del Denunciante" formControlName="telefono_denunciante">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label class="col-2 col-form-label">Fecha De Reclamo</label>
+                        <mat-form-field class="col-10">
+                            <input matInput [matDatepicker]="picker" placeholder="Fecha De Reclamo" formControlName="fecha_reclamo" >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Canal</label>
+                        <div class="col-10">
+                            <select class="form-control" formControlName="canal">
+                                <option *ngFor="let canal of canales">{{canal}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Estado</label>
+                        <div class="col-10">
+                            <select class="form-control" formControlName="estado">
+                                <option *ngFor="let estado of estados">{{estado}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Solucion o Observacion</label>
+                        <div class="col-10">
+                            <textarea class="form-control" formControlName="observaciones" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- <button mat-button [disabled]="!userForm.valid" type="submit" color="primary"> -->
+                    <div class="row justify-content-md-center m-1">
+                        <button mat-button [disabled]="!userForm.valid" type="submit" color="primary">
+                            <mat-icon mat-list-icon>done</mat-icon>
+                            Guardar
+                        </button>
+                        <button mat-button routerLink="/reclamos" color="warn">
+                            <mat-icon mat-list-icon>cancel</mat-icon>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

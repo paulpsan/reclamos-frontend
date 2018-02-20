@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(125, 164, 202);">
+  <div class="container-fluid">
+    <img src="assets/images/logo.png" class="rounded-top" width="250" height="50" alt="Centro de Contacto">
+    <span class="navbar-brand">Sistema De Reclamos </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/reclamos">Reclamos </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/usuarios" *ngIf="identity.rol=='ADMIN'">Usuarios </a>
+        </li>
+        <!-- <li class="nav-item" *ngFor="let link of navLinks" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="link.path" *ngIf="link.access==identity.rol">{{link.label}}</a>
+        </li> -->
+      </ul>
+    </div>
+    <span>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span> {{identity.usuario}}</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+              <!-- <a class="dropdown-item" routerLink="/usuarios/{{identity._id}}">Perfil</a> -->
+              <!-- <a class="dropdown-item" routerLink="/usuarios/editar/{{identity._id}}">Ajustes</a> -->
+              <!-- <div class="dropdown-divider"></div> -->
+              <a class="dropdown-item" (click)="logout()">Cerrar Sesion</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </span>
+  </div>
+</nav>
+<nav class="navbar navbar-light bg-lignt">
+  <a href="/" class="navbar-brand">Light</a>
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+    <span class="navbar-toggler-icon my-toggler"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="collapsingNavbar2">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+    </ul>
+  </div>
+</nav>

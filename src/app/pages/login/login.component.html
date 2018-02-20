@@ -1,0 +1,68 @@
+<!-- <app-header></app-header> -->
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <img src="assets/images/logo.png" class="rounded-top" width="620" height="150" alt="Centro de Contacto">
+  </div>
+
+  <div class="row justify-content-md-center m-1" *ngIf="!identity">
+    <div class="card bg-light col-md-6 col-sm-12" style="padding: 0;">
+      <div class="card-header">
+        <div class="row justify-content-center">
+          <span>Iniciar Sesión</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <!-- <div class="col pb-3">
+          <a (click)="loginG()" class="btn btn-block btn-social btn-google">
+            <i class="fa fa-google"></i> Entrar Con
+            <strong>Google</strong>
+          </a>
+        </div> -->
+
+        <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="form-group">
+              <mat-form-field class="col">
+                <input matInput placeholder="Usuario" formControlName="user">
+              </mat-form-field>
+            </div>
+
+            <div class="form-group">
+              <mat-form-field class="col">
+                <input type="password" matInput placeholder="Contraseña" formControlName="password">
+              </mat-form-field>
+            </div>
+          </fieldset>
+          <div class="alert alert-warning" role="alert" *ngIf="warning">
+            <strong>Warning!</strong> {{warning_message}}
+            <a href="#" class="alert-link"></a>.
+          </div>
+          <!-- <div class="col checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> Recuérdame
+            </label>
+          </div>
+          <div class="col">
+            <a href="#" class="">He olvidado mi contraseña</a>
+          </div> -->
+
+          <div class="col" *ngIf="errorMessage">
+            <div class="alert alert-info" role="alert">
+              <strong>Info</strong> {{errorMessage}}
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <button mat-button [disabled]="!loginForm.valid" type="submit" color="primary">
+              <mat-icon mat-list-icon>done</mat-icon>
+              Acceder
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

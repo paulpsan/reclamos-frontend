@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row justify-content-md-center m-1">
+        <div class="card bg-light col-md-12 col-sm-12" style="padding: 0;">
+            <div class="card-header">Crear Nuevo Proyecto
+            </div>
+            <div class="card-body">
+                <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Usuario</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Usuario" formControlName="usuario">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Rol</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Rol" formControlName="rol">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Cambio</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Cambio" formControlName="cambio">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Nombres</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Nombres" formControlName="persona_nombres">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Apellido Paterno</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Apellido Paterno" formControlName="persona_apaterno">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Apellido Materno</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Apellido Paterno" formControlName="persona_amaterno"> </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Genero</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Genero" formControlName="persona_genero">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Fecha de Nacimiento</label>
+                        <mat-form-field class="col-10">
+                            <input matInput [matDatepicker]="picker2" placeholder="Fecha De Nacimiento" formControlName="persona_fecha_nacimiento">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <button mat-button [disabled]="!userForm.valid" type="submit" color="primary"> -->
+                    <button mat-button [disabled]="!userForm.valid" type="submit" color="primary">
+                        <mat-icon mat-list-icon>done</mat-icon>
+                        Guardar
+                    </button>
+                    <button mat-button routerLink="/usuarios" color="warn">
+                        <mat-icon mat-list-icon>cancel</mat-icon>
+                        Cancelar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

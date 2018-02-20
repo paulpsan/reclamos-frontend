@@ -1,0 +1,15 @@
+.mat-tab-link {
+    font-size: 14px;
+    text-align: center;
+    line-height: 24px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: white;
+    font-family: 'Poppins', Helvetica, Arial, serif;
+}
+
+.mat-toolbar {
+    background-color: rgb(54, 22, 24);
+}
