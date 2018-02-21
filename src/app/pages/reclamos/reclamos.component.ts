@@ -72,6 +72,7 @@ export class ReclamosComponent implements OnInit {
       }
       this.dtTrigger.next();
     });
+    this.dtTrigger.next();
   }
   adicionar() {
     this.router.navigate(["/reclamos/adicionar"]);

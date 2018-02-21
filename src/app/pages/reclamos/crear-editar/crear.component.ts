@@ -75,37 +75,40 @@ export class CrearComponent implements OnInit {
     this.userForm.reset();
   }
   buscarUE(termino: string, departamento: string) {
-    termino = termino.toUpperCase();
-    console.log(termino, departamento);
-    this.cargando = false;
-    this._httpService
-      .buscar("unidades-educativas/search ", { des_ue: termino })
-      .subscribe(ues => {
-        if (departamento) {
-          departamento = departamento.toUpperCase();
-          let dep = new Array();
-          console.log(departamento, ues);
+    if (termino) {
+      termino = termino.toUpperCase();
+      console.log(termino, departamento);
+      this.cargando = false;
+      this._httpService
+        .buscar("unidades-educativas/search ", { des_ue: termino })
+        .subscribe(ues => {
+          if (departamento) {
+            departamento = departamento.toUpperCase();
+            let dep = new Array();
+            console.log(departamento, ues);
 
-          for (const iterator of ues) {
-            console.log(iterator.des_departamento, departamento);
-            if (iterator.des_departamento.trim() == departamento) {
-              dep.push(iterator);
-              console.log(dep);
+            for (const iterator of ues) {
+              console.log(iterator.des_departamento, departamento);
+              if (iterator.des_departamento.trim() == departamento) {
+                dep.push(iterator);
+                console.log(dep);
+              }
             }
+            this.unidadesEducativas = dep;
+            // return;
+          } else {
+            this.unidadesEducativas = ues;
           }
-          this.unidadesEducativas = dep;
-          // return;
-        } else {
-          this.unidadesEducativas = ues;
-        }
 
-        console.log(this.unidadesEducativas);
-        this.cargando = true;
-      });
+          console.log(this.unidadesEducativas);
+          this.cargando = true;
+        });
+    }
   }
 
   limpiar() {
     this.cargando = false;
+    this.buscar="";
 
     this.userForm.setValue({
       unidad_educativa: "",

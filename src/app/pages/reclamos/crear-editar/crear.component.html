@@ -8,7 +8,7 @@
 
         <!-- <form class="example-form"> -->
           <div class="form-group row ml-2">
-            <div class="col-4">
+            <div class="col-sm-4">
             <input type="text" (keyup.enter)="buscarUE(buscar,depa)" class="form-control" placeholder="Nombre de Unidad Educativa..." [(ngModel)]="buscar">
           
           </div>
@@ -17,7 +17,7 @@
               <input matInput placeholder="Nombre de Unidad Educativa..." [value]="dep">
             </mat-form-field> -->
 
-            <div class="col-3">
+            <div class="col-sm-3">
               <select class="form-control" [(ngModel)]="depa">
                 <option [ngValue]="undefined" selected>--Departamento--</option>
                 <option *ngFor="let dep of departamentos" [value]="dep">{{dep}}</option>
@@ -30,7 +30,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field> -->
-            <div class="col-3">
+            <div class="col-sm-3">
               <button mat-button (click)="buscarUE(buscar,depa)" color="primary">
                 <mat-icon mat-list-icon>search</mat-icon>buscar
               </button>
@@ -73,14 +73,14 @@
         <form *ngIf="!cargando" novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
           <div class="form-group row">
-            <label class="col-2 col-form-label">Unidad Educativa</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Unidad Educativa</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Unidad Educativa" formControlName="unidad_educativa">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Departamento</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Departamento</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Departamento" formControlName="departamento">
             </div>
           </div>
@@ -94,44 +94,44 @@
           </div> -->
 
           <div class="form-group row">
-            <label class="col-2 col-form-label">Distrito</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Distrito</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Dirección Detallada</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Dirección Detallada</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Dirección Detallada" formControlName="dir_detallada">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Detalle De Reclamo / Nombre Del Estudiante</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Detalle De Reclamo / Nombre Del Estudiante</label>
+            <div class="col-sm-10">
               <textarea class="form-control" formControlName="detalle_reclamo" rows="3"></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">De Quien Recibe Información</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">De Quien Recibe Información</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="De Quien Recibe Información" formControlName="recive_informacion">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Nombre Del Denunciante</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Nombre Del Denunciante</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Nombre Del Denunciante" formControlName="nombre_denunciante">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Telefono Del Denunciante</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Telefono Del Denunciante</label>
+            <div class="col-sm-10">
               <input class="form-control" type="text" placeholder="Telefono Del Denunciante" formControlName="telefono_denunciante">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Canal</label>
-            <div class="col-10">
+            <label class="col-sm-2 col-form-label">Canal</label>
+            <div class="col-sm-10">
               <select class="form-control" formControlName="canal">
                 <option *ngFor="let canal of canales" [value]="canal">{{canal}}</option>
               </select>
