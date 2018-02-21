@@ -1,6 +1,6 @@
 export const GLOBAL = {
-  url: "http://localhost:9000/api/",
-  // url: "https://contacto.ddeduclpz.gob.bo/api/",
+  // url: "http://localhost:9000/api/",
+  url: "https://contacto.ddeduclpz.gob.bo/api/",
   TOGGLE: true,
   roles: ["ADMIN", "AGENTE", "SUPERVISOR", "REPORTES"],
   departamentos: [
