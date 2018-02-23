@@ -3,15 +3,21 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { CrearComponent } from "./crear-editar/crear.component";
 import { EditarComponent } from "./crear-editar/editar.component";
+import { RoleGuard } from "../../common/guard/role.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: UsuariosComponent,
-    children: [
-    ]
+    canActivate: [RoleGuard],
+    children: []
   },
-  { path: "adicionar", component: CrearComponent },
+  {
+    path: "adicionar",
+    component: CrearComponent,
+    canActivate: [RoleGuard]
+  },
+
   { path: "editar/:id", component: EditarComponent }
 ];
 

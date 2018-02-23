@@ -16,6 +16,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 
 import { AuthGuard } from './common/guard/auth.guard';
+import { RoleGuard } from "./common/guard/role.guard";
+
 import { HttpService } from './services/http.service';
 
 
@@ -37,7 +39,7 @@ import { HttpService } from './services/http.service';
     ComunModule
   ],
   exports: [CdkTableModule],
-  providers: [HttpService, AuthGuard],
+  providers: [HttpService, AuthGuard,RoleGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

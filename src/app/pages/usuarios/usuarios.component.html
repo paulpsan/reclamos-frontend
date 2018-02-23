@@ -18,7 +18,6 @@
                         <th>Usuario</th>
                         <th>Password</th>
                         <th>Rol</th>
-                        <th>Cambio</th>
                         <th>Nombres</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
@@ -32,13 +31,11 @@
                         <td>{{usuario.usuario}}</td>
                         <td>{{usuario.password}}</td>
                         <td>{{usuario.rol}}</td>
-                        <td>{{usuario.cambio}}</td>
                         <td>{{usuario.nombres}}</td>
                         <td>{{usuario.apaterno}}</td>
                         <td>{{usuario.amaterno}}</td>
                         <td>{{usuario.genero}}</td>
                         <td>{{usuario.fecha_nacimiento}}</td>
-
                         <td>
                             <button mat-button (click)="editar(usuario)" color="primary">
                                 <i class="fa fa-cogs" aria-hidden="true"></i>

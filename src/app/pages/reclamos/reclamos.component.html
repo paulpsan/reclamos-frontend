@@ -3,10 +3,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-      <div class="row">
-        <div class="col-md-8" style="text-align: center">
+      <div class="row justify-content-between">
+        <div class="col-4" style="text-align: left">
+          <button mat-button color="primary" *ngIf="identity.rol=='ADMIN'">
+            <i class="material-icons">pie_chart</i>Generar Reporte
+          </button>
         </div>
-        <div class="col-md-4" style="text-align: right">
+        <div class="col-4" style="text-align: right">
           <button mat-button (click)="adicionar()" color="primary" *ngIf="identity.rol=='ADMIN'||identity.rol=='AGENTE'">
             <mat-icon mat-list-icon>add</mat-icon>adicionar
           </button>
@@ -15,7 +18,7 @@
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-responsive">
         <thead class="thead-default">
           <tr>
-            <th>Nro.</th>
+            <th>Nro. Reclamo</th>
             <th>Unidad Educativa</th>
             <th>Departamento</th>
             <th>Distrito</th>
@@ -36,7 +39,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let reclamo of data; index as i" [ngClass]="{red: reclamo.estado=='Registrado',yelow:reclamo.estado=='Procesado',green:reclamo.estado=='Resuelto'}">
-            <th>{{i+1}}</th>
+            <th>{{reclamo._id}}</th>
             <td>{{reclamo.unidad_educativa}}</td>
             <td>{{reclamo.departamento}}</td>
             <td>{{reclamo.distrito}}</td>
@@ -48,7 +51,7 @@
             <td>{{reclamo.fecha_reclamo_formato}}</td>
             <td>{{reclamo.fecha_modificacion_formato}}</td>
             <td>{{reclamo.canal}}</td>
-            <td>{{reclamo.Usuario.usuario||''}}</td>
+            <td>{{reclamo.Usuario.nombres||''}} {{reclamo.Usuario.apaterno||''}}</td>
             <td>{{reclamo.estado}}</td>
             <td>{{reclamo.observaciones}}</td>
             <td>{{reclamo.usuario_accion}}</td>

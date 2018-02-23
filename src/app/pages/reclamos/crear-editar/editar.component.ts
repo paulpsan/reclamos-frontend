@@ -43,35 +43,35 @@ export class EditarComponent implements OnInit {
     }
 
     this.userForm = new FormGroup({
-      unidad_educativa: new FormControl({ value: "n/a", disabled: access }),
-      departamento: new FormControl({ value: "n/a", disabled: access }),
-      distrito: new FormControl({ value: "n/a", disabled: access }),
-      dir_detallada: new FormControl({ value: "n/a", disabled: access }),
+      unidad_educativa: new FormControl({ value: "cargando...", disabled: access }),
+      departamento: new FormControl({ value: "cargando...", disabled: access }),
+      distrito: new FormControl({ value: "cargando...", disabled: access }),
+      dir_detallada: new FormControl({ value: "cargando...", disabled: access }),
       nombre_estudiante: new FormControl({
-        value: "n/a",
+        value: "cargando...",
         disabled: access
       }),
-      detalle_reclamo: new FormControl({ value: "n/a", disabled: access }),
+      detalle_reclamo: new FormControl({ value: "cargando...", disabled: access }),
       recive_informacion: new FormControl({
-        value: "n/a",
+        value: "cargando...",
         disabled: access
       }),
       nombre_denunciante: new FormControl({
-        value: "n/a",
+        value: "cargando...",
         disabled: access
       }),
       telefono_denunciante: new FormControl({
-        value: "n/a",
+        value: "cargando...",
         disabled: access
       }),
-      fecha_reclamo: new FormControl({ value: "n/a", disabled: access }),
+      fecha_reclamo: new FormControl({ value: "cargando...", disabled: access }),
       fecha_modificacion: new FormControl({
-        value: "n/a",
+        value: "cargando...",
         disabled: access
       }),
-      observaciones: new FormControl({ value: "n/a", disabled: access }),
-      canal: new FormControl({ value: "n/a", disabled: access }),
-      estado: new FormControl({ value: "n/a", disabled: false })
+      observaciones: new FormControl({ value: "cargando...", disabled: false }),
+      canal: new FormControl({ value: "cargando...", disabled: access }),
+      estado: new FormControl({ value: "cargando...", disabled: false })
     });
   }
   obtenerReclamo() {
@@ -120,7 +120,7 @@ export class EditarComponent implements OnInit {
         observaciones: this.userForm.controls["observaciones"].value,
         canal: this.userForm.controls["canal"].value,
         estado: this.userForm.controls["estado"].value,
-        usuario_accion: this.identity.usuario
+        usuario_accion: this.identity.nombres +" "+this.identity.apaterno
       };
       this._httpService.editar("reclamos", reclamo).subscribe(res => {
         setTimeout(() => {

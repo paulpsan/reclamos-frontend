@@ -31,7 +31,15 @@ export class ReclamosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (localStorage.getItem("identity")) {
+      this.identity = JSON.parse(localStorage.getItem("identity"));
+      console.log(this.identity);
+    }
+    this.obtener();
+  }
+  obtener() {
     this.dtOptions = {
+      order:[[0,'desc']],
       pagingType: "full_numbers",
       pageLength: 10,
       language: {
@@ -46,15 +54,11 @@ export class ReclamosComponent implements OnInit {
         }
       }
     };
-
-    if (localStorage.getItem("identity")) {
-      this.identity = JSON.parse(localStorage.getItem("identity"));
-      console.log(this.identity);
-    }
-    this.obtener();
-  }
-  obtener() {
     this._httpService.obtener("reclamos").subscribe(data => {
+      if(!this.data){
+        this.dtTrigger.next();
+      }
+      
       this.data = data;
 
       for (let index = 0; index < this.data.length; index++) {
@@ -63,16 +67,14 @@ export class ReclamosComponent implements OnInit {
         this.data[index].fecha_modificacion_formato = this.data[
           index
         ].fecha_modificacion
-          .replace(/T/, " ") // replace T with a space
-          .slice(0, -6); // delete the dot and everything after
+          .replace(/T/, " ") 
+          .slice(0, -6); 
         this.data[index].fecha_reclamo_formato = this.data[index].fecha_reclamo
-          .replace(/T/, " ") // replace T with a space
-          .slice(0, -6); // delete the dot and everything after;
-        console.log(this.data);
+          .replace(/T/, " ")
+          .slice(0, -6); 
       }
-      this.dtTrigger.next();
+      
     });
-    this.dtTrigger.next();
   }
   adicionar() {
     this.router.navigate(["/reclamos/adicionar"]);
@@ -96,8 +98,9 @@ export class ReclamosComponent implements OnInit {
         this._httpService.eliminarId("reclamos", result._id).subscribe(res => {
           //AQUI colocamos las notificaciones!!
           setTimeout(() => {
+            this.data=[];
             this.obtener();
-          }, 1000);
+          }, 100);
           // console.log('done');
         });
       }
