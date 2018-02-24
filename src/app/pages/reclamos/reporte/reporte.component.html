@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="container">
+  <form novalidate [formGroup]="reporteForm" (ngSubmit)="onSubmit()" class="form-inline mt-4">
+    <div class="form-group">
+      <label class="col-2 col-form-label">Departamento</label>
+      <div class="col-4">
+        <select class="form-control" formControlName="departamento">
+          <option>--Seleccione--</option>
+          <option *ngFor="let dep of departamentos">{{dep}}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <button mat-button [disabled]="!reporteForm.valid" type="submit" color="primary">
+          <mat-icon mat-list-icon>done</mat-icon>
+          Generar
+        </button>
+        <button mat-button routerLink="/reclamos" color="warn">
+          <mat-icon mat-list-icon>cancel</mat-icon>
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row justify-content-md-center m-2">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <chart-bar></chart-bar>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <chart-pie></chart-pie>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

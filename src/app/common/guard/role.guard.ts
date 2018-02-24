@@ -17,9 +17,7 @@ export class RoleGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     // console.log("probando el guard")
     if (localStorage.getItem("identity")) {
-      console.log(localStorage.getItem("identity"));
       this.identity = JSON.parse(localStorage.getItem("identity"));
-      console.log(localStorage.getItem("identity"));
       if (this.identity.rol === "ADMIN"){
         return true;
       } 

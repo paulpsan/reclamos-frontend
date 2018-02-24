@@ -1,0 +1,78 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row justify-content-md-center m-1">
+
+    <div class="card bg-light col-md-12 col-sm-12" style="padding: 0;">
+      <div class="card-header font-weight-bold text-center">Crear Tipologia
+      </div>
+      <form *ngIf="!cargando" novalidate [formGroup]="tipologiaForm" (ngSubmit)="submitTopologia()">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" placeholder="Nombre Tipologia" formControlName="nombreTipologia">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Descripcion</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" placeholder="descripcion Tipologia" formControlName="descripcionTipologia">
+            </div>
+          </div>
+          <div class="row justify-content-md-center m-1">
+            <button mat-button [disabled]="!tipologiaForm.valid" type="submit" color="primary">
+              <mat-icon mat-list-icon>done</mat-icon>
+              Guardar
+            </button>
+            <button mat-button color="warn">
+              <mat-icon mat-list-icon>cancel</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="card bg-light col-md-12 col-sm-12 mt-2" style="padding: 0;">
+      <div class="card-header font-weight-bold text-center">Crear Solicitudes
+      </div>
+
+      <div class="card-body">
+        <form *ngIf="!cargando" novalidate [formGroup]="solicitudesForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tipologia</label>
+            <div class="col-sm-10">
+              <select class="form-control" formControlName="tipologia">
+                <option *ngFor="let tipologia of tipologias" [value]="canal">{{tipologia}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Descripcion</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" placeholder="Descripcion" formControlName="descripcion">
+            </div>
+          </div>
+         <div class="row justify-content-md-center m-1">
+            <button mat-button [disabled]="!solicitudesForm.valid" type="submit" color="primary">
+              <mat-icon mat-list-icon>done</mat-icon>
+              Guardar
+            </button>
+            <button mat-button routerLink="/reclamos" color="warn">
+              <mat-icon mat-list-icon>cancel</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

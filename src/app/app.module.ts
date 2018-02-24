@@ -21,6 +21,7 @@ import { RoleGuard } from "./common/guard/role.guard";
 import { HttpService } from './services/http.service';
 
 
+
 // import { AdicionarComponent } from './pages/usuarios/adicionar/adicionar.component';
 // import { EditarComponent } from './pages/usuarios/editar/editar.component';
 
@@ -36,10 +37,10 @@ import { HttpService } from './services/http.service';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    ComunModule
+    ComunModule,
   ],
   exports: [CdkTableModule],
-  providers: [HttpService, AuthGuard,RoleGuard],
+  providers: [HttpService, AuthGuard, RoleGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

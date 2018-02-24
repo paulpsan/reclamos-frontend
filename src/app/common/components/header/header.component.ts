@@ -9,17 +9,18 @@ import { Usuario } from "../../../models/usuario";
 })
 export class HeaderComponent implements OnInit {
   public identity;
+  public login: boolean = false;
   title = "app";
   navLinks: any[] = [
     {
       label: "Reclamos",
       path: "/reclamos",
-      access:''
+      access: ""
     },
     {
       label: "Usuarios",
       path: "/usuarios",
-      access:"ADMIN"
+      access: "ADMIN"
     }
   ];
 
@@ -27,10 +28,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem("identity")) {
+      this.login = true;
       this.identity = JSON.parse(localStorage.getItem("identity"));
     }
   }
   logout() {
+    this.login = false;
     localStorage.removeItem("identity");
     localStorage.clear();
     this.router.navigate(["/login"]);

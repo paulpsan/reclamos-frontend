@@ -1,45 +1,47 @@
+<app-header></app-header>
 <div class="container">
   <div class="row justify-content-md-center m-1">
     <div class="card bg-light col-md-12 col-sm-12" style="padding: 0;">
-      <div class="card-header">Crear Nuevo Proyecto
+      <div class="card-header font-weight-bold text-center">Crear Nuevo Proyecto
       </div>
 
       <div class="card-body">
 
         <!-- <form class="example-form"> -->
-          <div class="form-group row ml-2">
-            <div class="col-sm-4">
-            <input type="text" (keyup.enter)="buscarUE(buscar,depa)" class="form-control" placeholder="Nombre de Unidad Educativa..." [(ngModel)]="buscar">
-          
+        <div class="form-group row ml-2">
+          <div class="col-sm-4">
+            <input type="text" (keyup.enter)="buscarUE(buscar,depa)" class="form-control" placeholder="Nombre de Unidad Educativa..."
+              [(ngModel)]="buscar">
+
           </div>
 
-            <!-- <mat-form-field class="col-4">
+          <!-- <mat-form-field class="col-4">
               <input matInput placeholder="Nombre de Unidad Educativa..." [value]="dep">
             </mat-form-field> -->
 
-            <div class="col-sm-3">
-              <select class="form-control" [(ngModel)]="depa">
-                <option [ngValue]="undefined" selected>--Departamento--</option>
-                <option *ngFor="let dep of departamentos" [value]="dep">{{dep}}</option>
-              </select>
-            </div>
-            <!-- <mat-form-field class="col-3">
+          <div class="col-sm-3">
+            <select class="form-control" [(ngModel)]="depa">
+              <option [ngValue]="undefined" selected>--Departamento--</option>
+              <option *ngFor="let dep of departamentos" [value]="dep">{{dep}}</option>
+            </select>
+          </div>
+          <!-- <mat-form-field class="col-3">
               <mat-select placeholder="Departamento" >
                 <mat-option *ngFor="let dep of departamentos" [value]="dep">
                   {{dep}}
                 </mat-option>
               </mat-select>
             </mat-form-field> -->
-            <div class="col-sm-3">
-              <button mat-button (click)="buscarUE(buscar,depa)" color="primary">
-                <mat-icon mat-list-icon>search</mat-icon>buscar
-              </button>
-              <button mat-button  (click)="limpiar()" color="primary">
-                limpiar
-              </button>
-              <!-- <a name="" id="" class="btn btn-primary" (click)="buscarUE( buscar )" role="button">buscar</a> -->
-            </div>
+          <div class="col-sm-3">
+            <button mat-button (click)="buscarUE(buscar,depa)" color="primary">
+              <mat-icon mat-list-icon>search</mat-icon>Buscar
+            </button>
+            <button mat-button (click)="limpiar()" color="primary">
+              <i class="material-icons">delete_sweep</i> Limpiar
+            </button>
+            <!-- <a name="" id="" class="btn btn-primary" (click)="buscarUE( buscar )" role="button">buscar</a> -->
           </div>
+        </div>
         <!-- </form> -->
         <div *ngIf="cargando">
           <table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">
