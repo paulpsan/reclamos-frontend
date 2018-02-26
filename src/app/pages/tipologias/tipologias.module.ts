@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  ConsultasComponent,
-  ModalEliminarConsulta
-} from "./consultas.component";
-import { ConsultasRoutingModule } from './consultas-routing.module';
+  TipologiasComponent,
+  ModalEliminarTipologia
+} from "./tipologias.component";
+import { TipologiasRoutingModule } from './tipologias-routing.module';
 
 import { ComunModule } from "./../../common/comun.module";
 import { MaterialModule } from '../../material/material.module';
@@ -15,7 +15,7 @@ import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   imports: [
     CommonModule,
-    ConsultasRoutingModule,
+    TipologiasRoutingModule,
     ComunModule,
     MaterialModule,
     FormsModule,
@@ -23,11 +23,12 @@ import { DataTablesModule } from 'angular-datatables';
     DataTablesModule
   ],
   declarations: [
-    ConsultasComponent,
+    TipologiasComponent,
     EditarComponent,
     CrearComponent,
-    ModalEliminarConsulta,
+    ModalEliminarTipologia,
+    TipologiasComponent
   ],
-  entryComponents: [ModalEliminarConsulta]
+  entryComponents: [ModalEliminarTipologia]
 })
-export class ConsultasModule {}
+export class TipologiasModule {}

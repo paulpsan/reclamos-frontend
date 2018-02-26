@@ -38,6 +38,17 @@ export class HttpService {
       })
       .catch((error: any) => Observable.throw(error || "Server error"));
   }
+
+  obtenerPor(nombre: string, id: Number,nombre2:string): Observable<any[]> {
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    return this._http
+      .get(this.url + nombre + "/" + id +"/"+nombre2+ "?tsp=" + Date.now())
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => Observable.throw(error || "Server error"));
+  }
+
   //obtiene datos de forma general
   obtenerPaginado(nombre: string, obj): Observable<any[]> {
     let myParams = new HttpParams();

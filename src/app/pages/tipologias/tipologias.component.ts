@@ -1,17 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MatDialog,MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { HttpService } from "../../services/http.service";
 import { Subject } from "rxjs/Subject";
 
 @Component({
-  selector: "app-consultas",
-  templateUrl: "./consultas.component.html",
-  styleUrls: ["./consultas.component.css"]
+  selector: "app-tipologias",
+  templateUrl: "./tipologias.component.html",
+  styleUrls: ["./tipologias.component.css"]
 })
-export class ConsultasComponent implements OnInit {
-  consultasForm: FormGroup;
+export class TipologiasComponent implements OnInit {
+  tipologiasForm: FormGroup;
   public identity;
   public tipologias;
   public detalleConsula;
@@ -29,16 +29,15 @@ export class ConsultasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._httpService.obtener("tipologias").subscribe(data => {
-      this.tipologias = data;
-    });
     if (localStorage.getItem("identity")) {
       this.identity = JSON.parse(localStorage.getItem("identity"));
+      console.log(this.identity);
     }
 
-    this.consultasForm = new FormGroup({
+    this.tipologiasForm = new FormGroup({
       tipologias: new FormControl(null, Validators.required)
     });
+    this.cargar();
   }
   cargar() {
     this.mostrar = true;
@@ -59,54 +58,45 @@ export class ConsultasComponent implements OnInit {
       }
     };
 
-    let id = this.consultasForm.controls["tipologias"].value;
+    let id = this.tipologiasForm.controls["tipologias"].value;
 
-    this._httpService
-      .obtenerPor("solicitudes", id, "tipologias")
-      .subscribe(data => {
-        if (!this.data) {
-          this.dtTrigger.next();
-        }
-        this.data = data;
-        console.log(data);
-      });
+    this._httpService.obtener("tipologias").subscribe(data => {
+      this.tipologias = data;
+      console.log(this.tipologias);
+    });
   }
   detalle(data) {
     this.mostrarDetalle = true;
     this.detalleConsula = data;
   }
-  atras(){
-    this.mostrar=false;
+  atras() {
     this.mostrarDetalle = false;
-    this.data=[];
-
   }
-  editar(consultas) {
+  editar(tipologias) {
     this.mostrarDetalle = false;
-    console.log(consultas);
-    if (consultas) {
-      this.router.navigate(["/consultas/editar", consultas._id]);
+    console.log(tipologias);
+    if (tipologias) {
+      this.router.navigate(["/tipologias/editar", tipologias._id]);
     }
   }
 
-  eliminar(consultas): void {
-    
-    console.log(consultas);
-    let dialogRef = this.dialog.open(ModalEliminarConsulta, {
+  eliminar(tipologias): void {
+    console.log(tipologias);
+    let dialogRef = this.dialog.open(ModalEliminarTipologia, {
       width: "350px",
-      data: consultas
+      data: tipologias
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result);
         this._httpService
-          .eliminarId("solicitudes", result._id)
+          .eliminarId("tipologias", result._id)
           .subscribe(res => {
             setTimeout(() => {
               this.data = [];
               this.mostrarDetalle = false;
-              // this.obtener();
+              this.cargar();
             }, 100);
             // console.log('done');
           });
@@ -115,12 +105,12 @@ export class ConsultasComponent implements OnInit {
   }
 }
 @Component({
-  selector: "modal-eliminar-consulta",
-  templateUrl: "modal-eliminar-consulta.html"
+  selector: "modal-eliminar-tipologia",
+  templateUrl: "modal-eliminar-tipologia.html"
 })
-export class ModalEliminarConsulta {
+export class ModalEliminarTipologia {
   constructor(
-    public dialogRef: MatDialogRef<ModalEliminarConsulta>,
+    public dialogRef: MatDialogRef<ModalEliminarTipologia>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

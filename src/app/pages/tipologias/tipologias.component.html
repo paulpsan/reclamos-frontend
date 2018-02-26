@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-8" style="text-align: center">
+        </div>
+        <div class="col-md-4" style="text-align: right">
+          <button mat-button routerLink="/tipologias/adicionar" color="primary">
+            <mat-icon mat-list-icon>add</mat-icon>adicionar
+          </button>
+        </div>
+      </div>
+      <table class="table table-hover table-responsive">
+        <thead class="thead-default">
+          <tr>
+            <th>Nro.</th>
+            <th>Tipologia</th>
+            <th>Descripcion</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tipologia of tipologias; index as i">
+            <th>{{i+1}}</th>
+            <td>{{tipologia.nombre}}</td>
+            <td>{{tipologia.descripcion}}</td>
+            <td>
+              <button mat-button (click)="editar(tipologia)" color="primary">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span class="enlaces">Editar</span>
+              </button>
+              <button mat-button (click)="eliminar(tipologia)" color="warn">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <span class="enlaces" style="color: red">Eliminar</span>
+              </button>
+            </td>
+          </tr>
+          <tbody>
+      </table>
+    </div>
+  </div>
+</div>

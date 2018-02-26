@@ -11,14 +11,12 @@ import { GLOBAL } from "../../../services/global";
   styleUrls: ["./editar.component.css"]
 })
 export class EditarComponent implements OnInit {
-  public Consulta;
+  public tipologia;
   public identity;
   public tipologias;
   public cargando:Boolean=false;
   id: number;
   private sub: any;
-
-  solicitudesForm: FormGroup;
   tipologiaForm: FormGroup;
 
   constructor(
@@ -36,49 +34,35 @@ export class EditarComponent implements OnInit {
       console.log(this.identity);
     }
     this.tipologiaForm = new FormGroup({
-      nombreTipologia: new FormControl("", Validators.required),
-      descripcionTipologia: new FormControl("")
+      nombre: new FormControl("", Validators.required),
+      descripcion: new FormControl("")
     });
 
-    this.solicitudesForm = new FormGroup({
-      tipologia: new FormControl("", Validators.required),
-      nombre: new FormControl("", Validators.required),
-      descripcion: new FormControl("", Validators.required)
-    });
-    this._httpService.obtener("tipologias").subscribe(result => {
-      this.tipologias = result;
-    });
     this.obtenerConsulta();
   }
 
   obtenerConsulta() {
-    this._httpService.buscarId("solicitudes", this.id).subscribe(result => {
-      this.Consulta = result;
+    this._httpService.buscarId("tipologias", this.id).subscribe(result => {
+      this.tipologia = result;
       this.cargarDatos();
     });
   }
   cargarDatos() {
-    console.log(this.Consulta);
-    this.solicitudesForm.setValue({
-      tipologia: this.Consulta.Tipologia.nombre,
-      nombre: this.Consulta.nombre,
-      descripcion: this.Consulta.descripcion
+    console.log(this.tipologia);
+    this.tipologiaForm.setValue({
+      nombre: this.tipologia.nombre,
+      descripcion: this.tipologia.descripcion
     });
   }
 
   onSubmit() {
-    console.log(this.identity.nombre);
-    if (this.solicitudesForm.valid) {
-      let Consulta = {
-        _id: this.Consulta._id,
-        fk_tipologia: parseInt(this.solicitudesForm.controls["tipologia"].value),
-        nombre: this.solicitudesForm.controls["nombre"].value,
-        descripcion: this.solicitudesForm.controls["descripcion"].value
-      };
-      this._httpService.editar("solicitudes", Consulta).subscribe(res => {
+    console.log(this.tipologia);
+    if (this.tipologiaForm.valid) {
+      let tipologia = {_id:this.tipologia._id, nombre: this.tipologiaForm.controls["nombre"].value, descripcion: this.tipologiaForm.controls["descripcion"].value };
+      this._httpService.editar("tipologias", tipologia).subscribe(res => {
         setTimeout(() => {
-          this.solicitudesForm.reset();
-          this.router.navigate(["/consultas"]);
+          this.tipologiaForm.reset();
+          this.router.navigate(["/tipologias"]);
         }, 1000);
       });
     }

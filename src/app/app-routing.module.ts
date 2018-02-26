@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: "./pages/consultas/consultas.module#ConsultasModule"
   },
   {
+    path: "tipologias",
+    loadChildren: "./pages/tipologias/tipologias.module#TipologiasModule"
+  },
+  {
     path: "**",
     redirectTo: "login"
   },

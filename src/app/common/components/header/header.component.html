@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/consultas" *ngIf="identity.rol=='ADMIN'||identity.rol=='AGENTE'">Consultas </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/tipologias" *ngIf="identity.rol=='ADMIN'">Tipologias </a>
+        </li>
         <!-- <li class="nav-item">
           <a class="nav-link" routerLink="/redes" >Redes </a>
         </li> -->

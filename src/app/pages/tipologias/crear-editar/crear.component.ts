@@ -41,11 +41,6 @@ export class CrearComponent implements OnInit {
       descripcionTipologia: new FormControl("")
     });
 
-    this.solicitudesForm = new FormGroup({
-      tipologia: new FormControl("", Validators.required),
-      nombre: new FormControl("", Validators.required),
-      descripcion: new FormControl("", Validators.required)
-    });
   }
   submitTipologia() {
     let objTipologia={
@@ -53,42 +48,8 @@ export class CrearComponent implements OnInit {
       descripcion:this.tipologiaForm.controls["descripcionTipologia"].value
     }
     this._httpService.adicionar("tipologias", objTipologia).subscribe(response => {
-      this.router.navigate(["/consultas"]);
+      this.router.navigate(["/tipologias"]);
     });
-    this.solicitudesForm.reset();
-  }
-  onSubmit() {
-    console.log(this.solicitudesForm.controls["tipologia"].value);
-    let objeto = {
-      nombre: this.solicitudesForm.controls["nombre"].value,
-      descripcion: this.solicitudesForm.controls["descripcion"].value,
-      fk_tipologia: this.solicitudesForm.controls["tipologia"].value,
-    };
-    this._httpService.adicionar("solicitudes", objeto).subscribe(response => {
-      this.router.navigate(["/consultas"]);
-    });
-    this.solicitudesForm.reset();
-  }
-  
-
-  limpiar() {
-    this.cargando = false;
-    this.buscar = "";
-
-    this.solicitudesForm.setValue({
-      unidad_educativa: "",
-      departamento: "",
-      distrito: "",
-      dir_detallada: "",
-      nombre_estudiante: "",
-      detalle_reclamo: "",
-      recive_informacion: "",
-      nombre_denunciante: "",
-      telefono_denunciante: "",
-      fecha_reclamo: "",
-      fecha_modificacion: "",
-      observaciones: "",
-      canal: ""
-    });
+    this.tipologiaForm.reset();
   }
 }
