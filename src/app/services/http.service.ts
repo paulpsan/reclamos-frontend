@@ -63,9 +63,9 @@ export class HttpService {
       .catch((error: any) => Observable.throw(error || "Server error"));
   }
   //obtiene los usuarios de un proyecto
-  obtenerUsuarios(nombre: string, repo: any, token: any): Observable<any> {
+  obtenerReporte(nombre: string, param: string): Observable<any> {
     return this._http
-      .post(this.url + nombre + "/usuarios/" + repo.id, { repo, token })
+      .get(this.url + nombre + "/" + param.toUpperCase() + "?tsp=" + Date.now())
       .map((res: Response) => {
         return res;
       })

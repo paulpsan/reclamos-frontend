@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({ selector: "chart-pie", templateUrl: "./pie.component.html" })
 export class PieComponent {
+  @Input() data;
   // Pie
   public pieChartLabels: string[] = [
     "JavaScript",
@@ -32,5 +33,24 @@ export class PieComponent {
 
   public chartHovered(e: any): void {
     console.log(e);
+  }
+
+  ngOnInit() {}
+  ngOnChanges() {
+    if (this.data) {
+      console.log(this.data);
+    }
+    delete this.pieChartLabels;
+    delete this.pieChartData;
+    this.pieChartLabels = [];
+    this.pieChartData = [];
+    if (this.data) {
+      for (let value of this.data) {
+        if (value.distrito != null) {
+          this.pieChartLabels.push(value.distrito);
+          this.pieChartData.push(parseInt(value.cont));
+        }
+      }
+    }
   }
 }

@@ -22,9 +22,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "redes",
-    loadChildren: "./pages/redes/redes.module#RedesModule",
-    canActivate: [AuthGuard]
+    path: "interacciones",
+    loadChildren: "./pages/interacciones/interacciones.module#InteraccionesModule",
   },
   {
     path: "consultas",

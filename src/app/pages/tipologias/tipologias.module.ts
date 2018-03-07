@@ -26,8 +26,7 @@ import { DataTablesModule } from 'angular-datatables';
     TipologiasComponent,
     EditarComponent,
     CrearComponent,
-    ModalEliminarTipologia,
-    TipologiasComponent
+    ModalEliminarTipologia
   ],
   entryComponents: [ModalEliminarTipologia]
 })

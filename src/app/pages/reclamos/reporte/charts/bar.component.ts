@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "chart-bar",
@@ -8,6 +8,8 @@ export class BarComponent {
   @Input() data;
   datos;
   id;
+  public dataBar;
+  public labelData;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: true,
@@ -49,5 +51,32 @@ export class BarComponent {
      * so one way around it, is to clone the data, change it and then
      * assign it;
      */
+  }
+
+  ngOnChanges() {
+    if (this.data) {
+      console.log(this.data);
+    }
+    // delete this.barChartLabels;
+    // delete this.barChartData;
+    this.labelData = [];
+    this.dataBar = [];
+    console.log(this.data);
+    this.barChartLabels = ["Distritos"];
+
+    if (this.data) {
+      let dataBar = [{ data: [0], label: "" }];
+      for (let value of this.data) {
+        if (value.distrito != null) {
+          dataBar.push({
+            data: [parseInt(value.cont)],
+            label: value.distrito
+          });
+        }
+        console.log(dataBar);
+      }
+
+      this.barChartData = dataBar;
+    }
   }
 }

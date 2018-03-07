@@ -61,6 +61,9 @@ export class TipologiasComponent implements OnInit {
     let id = this.tipologiasForm.controls["tipologias"].value;
 
     this._httpService.obtener("tipologias").subscribe(data => {
+      if (!this.tipologias) {
+        this.dtTrigger.next();
+      }
       this.tipologias = data;
       console.log(this.tipologias);
     });
@@ -94,7 +97,7 @@ export class TipologiasComponent implements OnInit {
           .eliminarId("tipologias", result._id)
           .subscribe(res => {
             setTimeout(() => {
-              this.data = [];
+              this.tipologias = [];
               this.mostrarDetalle = false;
               this.cargar();
             }, 100);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { GLOBAL } from "../../../services/global";
+import { ActivatedRoute, Router } from "@angular/router";
+import { HttpService } from "../../../services/http.service";
 
 @Component({
   selector: "app-reporte",
@@ -9,13 +11,36 @@ import { GLOBAL } from "../../../services/global";
 })
 export class ReporteComponent implements OnInit {
   public departamentos = GLOBAL.departamentos;
+  public cadena: string;
+  public showReporte: Boolean = false;
+  public departamento;
+  data$;
   reporteForm: FormGroup;
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private _httpService: HttpService
+  ) {}
 
   ngOnInit() {
     this.reporteForm = new FormGroup({
       departamento: new FormControl("", Validators.required)
     });
   }
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.departamento);
+    this.showReporte = false;
+    this.data$ = this.reporteForm.controls["departamento"].value;
+    this._httpService
+      .obtenerReporte(
+        "reclamos/reportes",
+        this.reporteForm.controls["departamento"].value
+      )
+      .subscribe(resp => {
+        this.data$ = resp;
+        this.showReporte = true;
+        console.log(resp);
+      });
+    // console.log(this.data$);
+  }
 }
