@@ -14,6 +14,10 @@ export class ReporteComponent implements OnInit {
   public cadena: string;
   public showReporte: Boolean = false;
   public departamento;
+  public showForm: Boolean = false;
+  public desde;
+  public hasta;
+
   data$;
   reporteForm: FormGroup;
   constructor(
@@ -42,5 +46,9 @@ export class ReporteComponent implements OnInit {
         console.log(resp);
       });
     // console.log(this.data$);
+  }
+  excel() {
+    this.showForm=true;
+    console.log(this.desde,this.hasta)
   }
 }

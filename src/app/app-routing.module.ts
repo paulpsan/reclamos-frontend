@@ -4,7 +4,6 @@ import { LoginComponent } from "./pages/login/login.component";
 import { AuthGuard } from "./common/guard/auth.guard";
 import { RoleGuard } from "./common/guard/role.guard";
 
-
 const routes: Routes = [
   {
     path: "",
@@ -22,16 +21,25 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "interacciones",
-    loadChildren: "./pages/interacciones/interacciones.module#InteraccionesModule",
-  },
-  {
     path: "consultas",
-    loadChildren: "./pages/consultas/consultas.module#ConsultasModule"
+    loadChildren: "./pages/consultas/consultas.module#ConsultasModule",
+    canActivate: [AuthGuard]
   },
   {
     path: "tipologias",
-    loadChildren: "./pages/tipologias/tipologias.module#TipologiasModule"
+    loadChildren: "./pages/tipologias/tipologias.module#TipologiasModule",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "interacciones",
+    loadChildren:
+      "./pages/interacciones/interacciones.module#InteraccionesModule",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "instancias",
+    loadChildren: "./pages/instancias/instancias.module#InstanciasModule",
+    canActivate: [AuthGuard]
   },
   {
     path: "**",
@@ -44,9 +52,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

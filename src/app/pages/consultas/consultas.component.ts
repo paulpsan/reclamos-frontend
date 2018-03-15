@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MatDialog,MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { HttpService } from "../../services/http.service";
 import { Subject } from "rxjs/Subject";
 
@@ -35,17 +35,15 @@ export class ConsultasComponent implements OnInit {
     if (localStorage.getItem("identity")) {
       this.identity = JSON.parse(localStorage.getItem("identity"));
     }
-
-    this.consultasForm = new FormGroup({
-      tipologias: new FormControl(null, Validators.required)
-    });
   }
-  cargar() {
+  cargar(itemSelect) {
     this.mostrar = true;
+
+    // setTimeout(() => {
+    //   this.mostrar = true;
+    // }, 500);
     this.dtOptions = {
       order: [[0, "desc"]],
-      pagingType: "full_numbers",
-      pageLength: 10,
       language: {
         search: "Buscar",
         lengthMenu: "Mostrar _MENU_ entradas",
@@ -59,13 +57,11 @@ export class ConsultasComponent implements OnInit {
       }
     };
 
-    let id = this.consultasForm.controls["tipologias"].value;
-
     this._httpService
-      .obtenerPor("solicitudes", id, "tipologias")
+      .obtenerPor("solicitudes", itemSelect, "tipologias")
       .subscribe(data => {
         if (!this.data) {
-          this.dtTrigger.next();
+          // this.dtTrigger.next();
         }
         this.data = data;
         console.log(data);
@@ -75,11 +71,10 @@ export class ConsultasComponent implements OnInit {
     this.mostrarDetalle = true;
     this.detalleConsula = data;
   }
-  atras(){
-    this.mostrar=false;
+  atras(solicitud) {
+    this.mostrar = false;
     this.mostrarDetalle = false;
-    this.data=[];
-
+    this.cargar(solicitud);
   }
   editar(consultas) {
     this.mostrarDetalle = false;
@@ -90,7 +85,6 @@ export class ConsultasComponent implements OnInit {
   }
 
   eliminar(consultas): void {
-    
     console.log(consultas);
     let dialogRef = this.dialog.open(ModalEliminarConsulta, {
       width: "350px",

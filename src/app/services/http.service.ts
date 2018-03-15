@@ -1,6 +1,6 @@
 import { Component, Injectable } from "@angular/core";
 import { Response } from "@angular/http";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { GLOBAL } from "./global";
@@ -39,10 +39,10 @@ export class HttpService {
       .catch((error: any) => Observable.throw(error || "Server error"));
   }
 
-  obtenerPor(nombre: string, id: Number,nombre2:string): Observable<any[]> {
+  obtenerPor(nombre: string, id: Number, nombre2: string): Observable<any[]> {
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     return this._http
-      .get(this.url + nombre + "/" + id +"/"+nombre2+ "?tsp=" + Date.now())
+      .get(this.url + nombre + "/" + id + "/" + nombre2 + "?tsp=" + Date.now())
       .map((res: Response) => {
         return res;
       })
@@ -72,7 +72,7 @@ export class HttpService {
       .catch((error: any) => Observable.throw(error || "Server error"));
   }
 
-  buscarId(nombre: string, id: number): Observable<any> {
+  buscarId(nombre: string, id): Observable<any> {
     let headers = new Headers({ "Content-Type": "application/json" });
     return this._http
       .get(this.url + nombre + "/" + id + "?tsp=" + Date.now())
@@ -83,7 +83,6 @@ export class HttpService {
   }
 
   adicionar(nombre: string, objeto: any): Observable<any> {
-    console.log(objeto);
     return this._http
       .post(this.url + nombre, objeto)
       .map((res: Response) => {
@@ -92,8 +91,19 @@ export class HttpService {
       .catch((error: any) => Observable.throw(error || "Server error"));
   }
 
+  post(url: string, objeto: any): Observable<any> {
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json; charset=utf-8"
+    });
+    return this._http
+      .post(url, objeto, { headers })
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => Observable.throw(error || "Server error"));
+  }
+
   buscar(nombre: string, objeto: any): Observable<any> {
-    console.log(objeto);
     return this._http
       .post(this.url + nombre, objeto)
       .map((res: Response) => {

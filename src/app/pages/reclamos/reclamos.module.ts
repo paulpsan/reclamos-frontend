@@ -8,6 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ChartsModule } from "ng2-charts/ng2-charts";
 
 import { HttpService } from "../../services/http.service";
+import { ExcelService } from "../../services/excel.service";
+
 import { ReclamosComponent, ModalEliminarReclamo } from "./reclamos.component";
 import { ReclamosRoutingModule } from "./reclamos-routing.module";
 import { HeaderComponent } from "../../common/components/header/header.component";
@@ -46,7 +48,8 @@ import { PieComponent } from "./reporte/charts/pie.component";
       useClass: HubInterceptor,
       multi: true
     },
-    HttpService
+    HttpService,
+    ExcelService
   ],
   entryComponents: [ModalEliminarReclamo]
 })

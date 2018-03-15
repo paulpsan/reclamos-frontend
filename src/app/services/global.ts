@@ -24,5 +24,6 @@ export const GLOBAL = {
     "Chat Institucional",
     "Twitter",
     "Youtube"
-  ]
+  ],
+  categorias: ["Consulta", "Requerimiento", "Denuncia"]
 };

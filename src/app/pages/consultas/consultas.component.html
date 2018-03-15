@@ -6,31 +6,17 @@
         <mat-icon mat-list-icon>add</mat-icon>adicionar
       </button>
     </div>
-    <form novalidate [formGroup]="consultasForm" (ngSubmit)="cargar()" class="form-inline mt-4">
-      <div class="col form-group">
-        <label class="col-2 col-form-label">Tipologias</label>
-        <div class="col-4">
-          <select class="form-control" formControlName="tipologias">
-            <!-- <option [ngValue]="undefined">--Seleccione--</option> -->
-            <option *ngFor="let tip of tipologias" [value]="tip._id">{{tip.nombre}}</option>
-          </select>
-        </div>
-        <div class="col-2">
-        </div>
-        <div class="col-4">
-          <button mat-button [disabled]="!consultasForm.valid" type="submit" color="primary">
-            <mat-icon mat-list-icon>done</mat-icon>
-            Mostrar
-          </button>
-          <!-- <button mat-button routerLink="/reclamos" color="warn">
-            <mat-icon mat-list-icon>cancel</mat-icon>
-            Cancelar
-          </button> -->
-        </div>
-      </div>
-    </form>
+    <label class="col-2 col-form-label">Tipologias</label>
+    <div class="col-4">
+      <select class="form-control" [(ngModel)]="selectedValue" (ngModelChange)="cargar($event)">
+        <option [ngValue]="undefined" select disabled>--Seleccione Tipologia--</option>
+        <option *ngFor="let tip of tipologias" [value]="tip._id">{{tip.nombre}}</option>
+      </select>
+    </div>
+
     <div class="col mt-2" *ngIf="mostrar">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+      <!-- <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover"> -->
+      <table class="table table-hover">
         <thead class="thead-default">
           <tr>
             <th>Nro. Solicitud</th>
@@ -60,20 +46,21 @@
     </div>
 
   </div>
-  <div *ngIf="mostrarDetalle">
-    <div class="col" style="text-align: right">
-      <button mat-button (click)="atras()" color="primary">
-        <i class="material-icons">undo</i>atras
-      </button>
-    </div>
+<div *ngIf="mostrarDetalle">
+  <div class="col" style="text-align: right">
+    <button mat-button (click)="atras(solicitud)" color="primary">
+      <i class="material-icons">undo</i>atras
+    </button>
+  </div>
 
-    <div class="card border-secondary mb-3">
-      <div class="card-header">{{detalleConsula.nombre}}</div>
-      <div class="card-body text-secondary">
-        <!-- <h5 class="card-title">Primary card title</h5> -->
-        <p class="card-text">{{detalleConsula.descripcion}}</p>
-      </div>
+  <div class="card border-secondary mb-3">
+    <div class="card-header">{{detalleConsula.nombre}}</div>
+    <div class="card-body text-secondary">
+      <!-- <h5 class="card-title">Primary card title</h5> -->
+      <textarea class="form-control" readonly style="height:500px">{{detalleConsula.descripcion}}</textarea>
+      <!-- <p class="card-text">{{detalleConsula.descripcion}}</p> -->
     </div>
   </div>
+</div>
 
 </div>
