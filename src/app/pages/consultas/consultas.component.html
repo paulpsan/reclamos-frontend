@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let solicitud of data; index as i" (click)="detalle(solicitud)" style="cursor:pointer">
-            <th>{{solicitud._id}}</th>
+            <th>{{i+1}}</th>
             <td>{{solicitud.nombre}}</td>
             <td>{{solicitud.descripcion}}</td>
             <td *ngIf="identity.rol=='ADMIN'">

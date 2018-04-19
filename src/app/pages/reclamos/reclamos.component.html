@@ -5,12 +5,12 @@
     <div class="col-lg-12">
       <div class="row justify-content-between">
         <div class="col-md-2">
-          <button mat-button routerLink="/reclamos/reporte" color="primary" *ngIf="identity.rol=='ADMIN'">
+          <button mat-button routerLink="/reclamos/reporte" color="primary" *ngIf="identity.rol=='ADMIN'||identity.rol=='REPORTES'">
             <i class="material-icons">pie_chart</i>Graficas
           </button>
         </div>
         <div class="col-md-8">
-          <button mat-button (click)="mostrar=!mostrar" color="primary" *ngIf="identity.rol=='ADMIN'">
+          <button mat-button (click)="mostrar=!mostrar" color="primary" *ngIf="identity.rol=='ADMIN'||identity.rol=='REPORTES'">
             <i class="material-icons">storage</i>Reporte
           </button>
           <form *ngIf="mostrar" [formGroup]="reporteForm" (ngSubmit)="descargar()">

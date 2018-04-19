@@ -33,7 +33,6 @@ export class EditarComponent implements OnInit {
     });
     if (localStorage.getItem("identity")) {
       this.identity = JSON.parse(localStorage.getItem("identity"));
-      console.log(this.identity);
     }
     this.tipologiaForm = new FormGroup({
       nombreTipologia: new FormControl("", Validators.required),
@@ -43,7 +42,8 @@ export class EditarComponent implements OnInit {
     this.solicitudesForm = new FormGroup({
       tipologia: new FormControl("", Validators.required),
       nombre: new FormControl("", Validators.required),
-      descripcion: new FormControl("", Validators.required)
+      descripcion: new FormControl("", Validators.required),
+      prioridad: new FormControl("", Validators.required)
     });
     this._httpService.obtener("tipologias").subscribe(result => {
       this.tipologias = result;
@@ -58,22 +58,22 @@ export class EditarComponent implements OnInit {
     });
   }
   cargarDatos() {
-    console.log(this.Consulta);
     this.solicitudesForm.setValue({
-      tipologia: this.Consulta.Tipologia.nombre,
+      tipologia: this.Consulta.Tipologia._id,
       nombre: this.Consulta.nombre,
-      descripcion: this.Consulta.descripcion
+      descripcion: this.Consulta.descripcion,
+      prioridad: this.Consulta.prioridad
     });
   }
 
   onSubmit() {
-    console.log(this.identity.nombre);
     if (this.solicitudesForm.valid) {
       let Consulta = {
         _id: this.Consulta._id,
         fk_tipologia: parseInt(this.solicitudesForm.controls["tipologia"].value),
         nombre: this.solicitudesForm.controls["nombre"].value,
-        descripcion: this.solicitudesForm.controls["descripcion"].value
+        descripcion: this.solicitudesForm.controls["descripcion"].value,
+        prioridad: parseInt(this.solicitudesForm.controls["prioridad"].value),
       };
       this._httpService.editar("solicitudes", Consulta).subscribe(res => {
         setTimeout(() => {

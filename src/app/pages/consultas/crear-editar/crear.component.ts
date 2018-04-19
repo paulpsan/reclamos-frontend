@@ -44,32 +44,36 @@ export class CrearComponent implements OnInit {
     this.solicitudesForm = new FormGroup({
       tipologia: new FormControl("", Validators.required),
       nombre: new FormControl("", Validators.required),
-      descripcion: new FormControl("", Validators.required)
+      descripcion: new FormControl("", Validators.required),
+      prioridad: new FormControl("", Validators.required)
     });
   }
   submitTipologia() {
-    let objTipologia={
-      nombre:this.tipologiaForm.controls["nombreTipologia"].value,
-      descripcion:this.tipologiaForm.controls["descripcionTipologia"].value
-    }
-    this._httpService.adicionar("tipologias", objTipologia).subscribe(response => {
-      this.router.navigate(["/consultas"]);
-    });
+    let objTipologia = {
+      nombre: this.tipologiaForm.controls["nombreTipologia"].value,
+      descripcion: this.tipologiaForm.controls["descripcionTipologia"].value,
+      prioridad: this.tipologiaForm.controls["descripcionTipologia"].value
+    };
+    this._httpService
+      .adicionar("tipologias", objTipologia)
+      .subscribe(response => {
+        this.router.navigate(["/consultas"]);
+      });
     this.solicitudesForm.reset();
   }
   onSubmit() {
     console.log(this.solicitudesForm.controls["tipologia"].value);
     let objeto = {
+      fk_tipologia: this.solicitudesForm.controls["tipologia"].value,
       nombre: this.solicitudesForm.controls["nombre"].value,
       descripcion: this.solicitudesForm.controls["descripcion"].value,
-      fk_tipologia: this.solicitudesForm.controls["tipologia"].value,
+      prioridad: parseInt(this.solicitudesForm.controls["prioridad"].value)
     };
     this._httpService.adicionar("solicitudes", objeto).subscribe(response => {
       this.router.navigate(["/consultas"]);
     });
     this.solicitudesForm.reset();
   }
-  
 
   limpiar() {
     this.cargando = false;

@@ -61,6 +61,12 @@
               <textarea class="form-control" formControlName="descripcion" rows="4"></textarea>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Prioridad</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" placeholder="prioridad" formControlName="prioridad">
+            </div>
+          </div>
           <div class="row justify-content-md-center m-1">
             <button mat-button [disabled]="!solicitudesForm.valid" type="submit" color="primary">
               <mat-icon mat-list-icon>done</mat-icon>
