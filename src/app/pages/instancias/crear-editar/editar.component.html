@@ -5,7 +5,7 @@
             <div class="card-header">Crear Nuevo Proyecto
             </div>
             <div class="card-body">
-                <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <form novalidate [formGroup]="instanForm" (ngSubmit)="onSubmit()">
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Entrada</label>
@@ -23,7 +23,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">SubCategoria</label>
                         <div class="col-sm-10">
@@ -36,9 +36,59 @@
                             <input class="form-control" type="text" placeholder="descripcion" formControlName="descripcion">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Formulario</label>
+                        <div class="col-sm-10">
+                            <mat-checkbox (click)="createForm()" formControlName="checkForm">
+                            </mat-checkbox>
+                        </div>
+                    </div>
 
-                    <!-- <button mat-button [disabled]="!userForm.valid" type="submit" color="primary"> -->
-                    <button mat-button [disabled]="!userForm.valid" type="submit" color="primary">
+                    <div *ngIf="checkForm">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Campo 1</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo1">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Campo 2</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Campo 3</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo3">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Campo 4</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo4">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Campo 5</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo5">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Campo 6</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo6">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Campo 7</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo7">
+                            </div>
+                            <label class="col-sm-2 col-form-label">Campo 8</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="Nombre del campo" formControlName="campo8">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <button mat-button [disabled]="!instanForm.valid" type="submit" color="primary"> -->
+                    <button mat-button [disabled]="!instanForm.valid" type="submit" color="primary">
                         <mat-icon mat-list-icon>done</mat-icon>
                         Guardar
                     </button>

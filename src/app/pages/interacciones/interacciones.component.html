@@ -1,8 +1,31 @@
 <app-header></app-header>
 <div class="container">
+  <div>
+    <button mat-button (click)="mostrarReporte=!mostrarReporte" color="primary" *ngIf="identity.rol=='ADMIN'">
+      <i class="material-icons">storage</i>Reporte
+    </button>
+    <form *ngIf="mostrarReporte" [formGroup]="reporteForm" (ngSubmit)="reporte()">
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="">Desde: </label>
+          <input type="date" class="form-control" formControlName="desde">
+        </div>
+        <div class="form-group">
+          <label for="">Hasta: </label>
+          <input type="date" class="form-control" formControlName="hasta">
+        </div>
+        <div class="form-group">
+          <button mat-button [disabled]="!reporteForm.valid" type="submit" color="primary">
+            <mat-icon mat-list-icon>done</mat-icon>
+            Descargar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="row mt-4">
-    <div class="col-5">
-      <div class="row justify-content-md-center" *ngIf="showInstancia">
+    <div class="col-md-5 col-lg-3">
+      <div class="row justify-content-center" *ngIf="showInstancia">
         <div class="card bg-light mb-3" style="max-width: 18rem;">
           <div class="card-header">Instancia</div>
           <div class="card-body">
@@ -19,31 +42,28 @@
       </div>
 
       <div class="row justify-content-md-center">
-        <div class="col-8">
-
-          <button (click)="mostrar('Facebook')" class="btn btn-block btn-social btn-facebook">
-            <i class="fa fa-facebook"></i>Facebook
-          </button>
-          <button (click)="mostrar('Line Gratuita')" class="btn btn-block btn-social btn-linkedin">
-            <i class="fa fa-phone"></i>Linea Gratuita
-          </button>
-          <button (click)="mostrar('Whatsapp')" class="btn btn-block btn-social bg-success">
-            <i class="fa fa-whatsapp"></i>Whatsapp
-          </button>
-          <button (click)="mostrar('Correo Electronico')" class="btn btn-block btn-social btn-reddit">
-            <i class="fa fa-envelope"></i>Correo
-          </button>
-          <button (click)="mostrar('Chat Institucional')" class="btn btn-block btn-social btn-openid" style="blackground-color:slateblue">
-            <i class="fa fa-comments"></i>Chat Institucional
-          </button>
-          <button (click)="mostrar('Twitter')" class="btn btn-block btn-social btn-twitter">
-            <span class="fa fa-twitter"></span>Twitter
-          </button>
-        </div>
+        <button (click)="mostrar('Facebook')" class="btn btn-block btn-social btn-facebook">
+          <i class="fa fa-facebook"></i>Facebook
+        </button>
+        <button (click)="mostrar('Line Gratuita')" class="btn btn-block btn-social btn-linkedin">
+          <i class="fa fa-phone"></i>Linea Gratuita
+        </button>
+        <button (click)="mostrar('Whatsapp')" class="btn btn-block btn-social bg-success">
+          <i class="fa fa-whatsapp"></i>Whatsapp
+        </button>
+        <button (click)="mostrar('Correo Electronico')" class="btn btn-block btn-social btn-reddit">
+          <i class="fa fa-envelope"></i>Correo
+        </button>
+        <button (click)="mostrar('Chat Institucional')" class="btn btn-block btn-social btn-openid" style="blackground-color:slateblue">
+          <i class="fa fa-comments"></i>Chat Institucional
+        </button>
+        <button (click)="mostrar('Twitter')" class="btn btn-block btn-social btn-twitter">
+          <span class="fa fa-twitter"></span>Twitter
+        </button>
       </div>
     </div>
-    <div class="col-7" *ngIf="showInteraccion">
-      <div class="row justify-content-end">
+    <div class="col-md-7 col-lg-9" *ngIf="showInteraccion">
+      <div class="row justify-content-end mt-2">
         <button type="button" (click)="finalizar()" class="btn btn-secondary">Finalizar</button>
       </div>
       <h3>{{redes}}</h3>
@@ -52,40 +72,44 @@
         <button type="button" class="btn btn-info" (click)="requerimiento(redes)">Requerimiento</button>
         <button type="button" class="btn btn-warning" (click)="denuncia(redes)">Denuncias</button>
       </div>
-      <table *ngIf="showTable" class="table">
+      <table *ngIf="showTable" class="table table-responsive mt-2">
         <thead>
           <tr>
-            <th>Accion</th>
+            <th>Nro</th>
             <th>Subcategoria</th>
-            <th>Descripcion</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of data" [ngClass]="{red: item.estado==true}" (click)="item.estado=!item.estado; adicionar(item)">
+          <tr *ngFor="let item of data;index as i" [ngClass]="{red: item.estado==true}" (click)="item.estado=!item.estado; adicionar(item)">
             <th>
+              {{i+1}}
             </th>
             <td>{{item.subcategoria}}</td>
-            <td>{{item.descripcion}}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="col-7" *ngIf="showInst">
-      <table class="table">
+    <div class="col-md-7 col-lg-9" *ngIf="showInst">
+      <table class="table table-responsive mt-2">
         <thead>
           <tr>
-            <th>Accion</th>
+            <th>Nro</th>
+            <th>Entrada</th>
+            <th>Categoria</th>
             <th>Subcategoria</th>
-            <th>Descripcion</th>
+            <th>Creado</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of dataInstancia">
+          <tr *ngFor="let item of dataInstancia.interacciones;index as i">
             <th>
+              {{i+1}}
             </th>
+            <td>{{dataInstancia.entrada}}</td>
+            <td>{{item.categoria}}</td>
             <td>{{item.subcategoria}}</td>
-            <td>{{item.descripcion}}</td>
+            <td>{{item.InstanciaInteracciones.createdAt | date:'short'}}</td>
           </tr>
         </tbody>
       </table>

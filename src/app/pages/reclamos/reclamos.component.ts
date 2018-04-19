@@ -42,7 +42,6 @@ export class ReclamosComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem("identity")) {
       this.identity = JSON.parse(localStorage.getItem("identity"));
-      console.log(this.identity);
     }
     this.reporteForm = new FormGroup({
       desde: new FormControl("", Validators.required),
@@ -51,17 +50,12 @@ export class ReclamosComponent implements OnInit {
     this.obtener();
   }
   descargar() {
-    console.log(
-      this.reporteForm.controls["desde"].value,
-      this.reporteForm.controls["hasta"].value
-    );
     this.mostrar = false;
     let obj = {
       desde: this.reporteForm.controls["desde"].value,
       hasta: this.reporteForm.controls["hasta"].value
     };
     this._httpService.adicionar("reclamos/reporte", obj).subscribe(data => {
-      console.log(data);
       let objExcel = [];
       for (const iterator of data) {
         let obj = {
@@ -82,7 +76,6 @@ export class ReclamosComponent implements OnInit {
           OBSERVACIONES: iterator.observaciones,
           USUARIO_ACCION: iterator.usuario_accion
         };
-        console.log(obj);
         objExcel.push(obj);
       }
       this.excelService.exportAsExcelFile(objExcel, "RECLAMOS");
@@ -130,13 +123,11 @@ export class ReclamosComponent implements OnInit {
     this.router.navigate(["/reclamos/adicionar"]);
   }
   editar(reclamo) {
-    console.log(reclamo);
     if (reclamo) {
       this.router.navigate(["/reclamos/editar", reclamo._id]);
     }
   }
   eliminar(reclamo): void {
-    console.log(reclamo);
     let dialogRef = this.dialog.open(ModalEliminarReclamo, {
       width: "350px",
       data: reclamo
@@ -144,7 +135,6 @@ export class ReclamosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this._httpService.eliminarId("reclamos", result._id).subscribe(res => {
           //AQUI colocamos las notificaciones!!
           setTimeout(() => {

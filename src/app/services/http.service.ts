@@ -96,7 +96,7 @@ export class HttpService {
       "Content-Type": "application/json; charset=utf-8"
     });
     return this._http
-      .post(url, objeto, { headers })
+      .post(this.url+url, objeto, { headers })
       .map((res: Response) => {
         return res;
       })

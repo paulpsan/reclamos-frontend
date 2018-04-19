@@ -13,11 +13,12 @@ export class EditarComponent implements OnInit {
   public instancia;
   public entradas = GLOBAL.canales;
   public categorias = GLOBAL.categorias;
+  checkForm: Boolean = false;
   public identity;
   id: number;
   private sub: any;
 
-  userForm: FormGroup;
+  instanForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +35,20 @@ export class EditarComponent implements OnInit {
       console.log(this.identity);
     }
     this.obtenerInstancia();
-    this.userForm = new FormGroup({
+    this.instanForm = new FormGroup({
       entrada: new FormControl("", Validators.required),
       categoria: new FormControl("", Validators.required),
       subcategoria: new FormControl("", Validators.required),
-      descripcion: new FormControl("")
+      descripcion: new FormControl(""),
+      checkForm: new FormControl(this.checkForm),
+      campo1: new FormControl(""),
+      campo2: new FormControl(""),
+      campo3: new FormControl(""),
+      campo4: new FormControl(""),
+      campo5: new FormControl(""),
+      campo6: new FormControl(""),
+      campo7: new FormControl(""),
+      campo8: new FormControl("")
     });
   }
   obtenerInstancia() {
@@ -49,26 +59,78 @@ export class EditarComponent implements OnInit {
   }
   cargarDatos() {
     console.log(this.instancia);
-    this.userForm.setValue({
-      entrada: this.instancia.entrada,
-      categoria: this.instancia.categoria,
-      subcategoria: this.instancia.subcategoria,
-      descripcion: this.instancia.descripcion
-    });
+    if (this.instancia.formulario) {
+      this.checkForm = true;
+      this.instanForm.setValue({
+        entrada: this.instancia.entrada,
+        categoria: this.instancia.categoria,
+        subcategoria: this.instancia.subcategoria,
+        descripcion: this.instancia.descripcion,
+        checkForm: this.checkForm,
+        campo1: this.instancia.formulario.campo1,
+        campo2: this.instancia.formulario.campo2,
+        campo3: this.instancia.formulario.campo3,
+        campo4: this.instancia.formulario.campo4,
+        campo5: this.instancia.formulario.campo5,
+        campo6: this.instancia.formulario.campo6,
+        campo7: this.instancia.formulario.campo7,
+        campo8: this.instancia.formulario.campo8
+      });
+    } else {
+      this.instanForm.setValue({
+        entrada: this.instancia.entrada,
+        categoria: this.instancia.categoria,
+        subcategoria: this.instancia.subcategoria,
+        descripcion: this.instancia.descripcion,
+        checkForm: this.checkForm,
+        campo1: "",
+        campo2: "",
+        campo3: "",
+        campo4: "",
+        campo5: "",
+        campo6: "",
+        campo7: "",
+        campo8: ""
+      });
+    }
   }
-
+  createForm() {
+    this.checkForm = !this.checkForm;
+  }
   onSubmit() {
-    if (this.userForm.valid) {
-      let instancia = {
-        _id: this.instancia._id,
-        entrada: this.userForm.controls["entrada"].value,
-        categoria: this.userForm.controls["categoria"].value,
-        subcategoria: this.userForm.controls["subcategoria"].value,
-        descripcion: this.userForm.controls["descripcion"].value
-      };
+    if (this.instanForm.valid) {
+      let instancia = {};
+      if (this.checkForm) {
+        instancia = {
+          _id: this.instancia._id,
+          entrada: this.instanForm.controls["entrada"].value,
+          categoria: this.instanForm.controls["categoria"].value,
+          subcategoria: this.instanForm.controls["subcategoria"].value,
+          descripcion: this.instanForm.controls["descripcion"].value,
+          formulario: {
+            campo1: this.instanForm.controls["campo1"].value,
+            campo2: this.instanForm.controls["campo2"].value,
+            campo3: this.instanForm.controls["campo3"].value,
+            campo4: this.instanForm.controls["campo4"].value,
+            campo5: this.instanForm.controls["campo5"].value,
+            campo6: this.instanForm.controls["campo6"].value,
+            campo7: this.instanForm.controls["campo7"].value,
+            campo8: this.instanForm.controls["campo8"].value
+          }
+        };
+      } else {
+        instancia = {
+          _id: this.instancia._id,
+          entrada: this.instanForm.controls["entrada"].value,
+          categoria: this.instanForm.controls["categoria"].value,
+          subcategoria: this.instanForm.controls["subcategoria"].value,
+          descripcion: this.instanForm.controls["descripcion"].value,
+          formulario: null
+        };
+      }
       this._httpService.editar("interacciones", instancia).subscribe(res => {
         setTimeout(() => {
-          this.userForm.reset();
+          this.instanForm.reset();
           if (this.identity.rol === "ADMIN") {
             this.router.navigate(["/instancias"]);
           }

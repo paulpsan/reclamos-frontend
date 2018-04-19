@@ -18,18 +18,15 @@ export class InteraccionesComponent implements OnInit {
   public showButton: Boolean = false;
   public styleSelect: Boolean = false;
   public showInst: Boolean = false;
+  public mostrarReporte: Boolean = false;
   public objAdicionar = [];
   public data = [];
   public redes;
+  public dataInstancia = {};
+  public identity;
   userForm: FormGroup;
+  reporteForm: FormGroup;
 
-  public facebook;
-  public chat;
-  public correo;
-  public whatsapp;
-  public linea;
-  public twitter;
-  public items;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -41,13 +38,49 @@ export class InteraccionesComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem("identity")) {
+      this.identity = JSON.parse(localStorage.getItem("identity"));
+      console.log(this.identity);
+    }
+    this.reporteForm = new FormGroup({
+      desde: new FormControl("", Validators.required),
+      hasta: new FormControl("", Validators.required)
+    });
     this.userForm = new FormGroup({
       instancia: new FormControl("", Validators.required)
     });
   }
 
+  reporte() {
+    this.mostrarReporte = false;
+    let obj = {
+      desde: this.reporteForm.controls["desde"].value,
+      hasta: this.reporteForm.controls["hasta"].value
+    };
+    this._httpService.post("instancias/reporte", obj).subscribe(data => {
+      console.log(data);
+      let objExcel = [];
+      for (const iterator of data) {
+        for (const item of iterator.Interacciones) {
+          let dataExcel = {
+            Identificador: iterator._id,
+            Entrada: iterator.entrada,
+            Creacion: iterator.createdAt,
+            Red: item.entrada,
+            Categoria: item.categoria,
+            SubCategoria: item.subcategoria
+          };
+          objExcel.push(dataExcel);
+        }
+      }
+
+      console.log(objExcel);
+      this.excelService.exportAsExcelFile(objExcel, "INTERACCIONES");
+    });
+  }
+
   mostrar(cadena: string) {
-    this.showInstancia = true;
+    this.showInstancia = !this.showInstancia;
     this.redes = cadena;
     this.showInteraccion = false;
     this.showTable = false;
@@ -58,12 +91,26 @@ export class InteraccionesComponent implements OnInit {
   finalizar() {
     console.log(this.objAdicionar);
     console.log(this.userForm.controls["instancia"].value);
-    let objPost = {
-      entrada: this.userForm.controls["instancia"].value,
-      interacciones: this.objAdicionar
+
+    let objInstancia = {
+      entrada: this.userForm.controls["instancia"].value
     };
-    this._httpService.adicionar("instancias", objPost).subscribe(res => {
-      console.log(res);
+
+    this._httpService.adicionar("instancias", objInstancia).subscribe(data => {
+      console.log(data);
+
+      for (const iterator of this.objAdicionar) {
+        let objPost = {
+          fk_instancia: data._id,
+          fk_interaccion: iterator._id
+        };
+        this._httpService
+          .adicionar("instancias/" + data._id + "/interacciones", objPost)
+          .subscribe(res => {
+            console.log(res);
+          });
+      }
+
       this.showInteraccion = false;
       this.showInstancia = false;
       this.showTable = false;
@@ -72,20 +119,31 @@ export class InteraccionesComponent implements OnInit {
     });
   }
   buscar() {
+    this.dataInstancia = {};
     this.showInteraccion = false;
-    this.showInstancia = false;
     this.showTable = false;
     this.showInst = true;
-    console.log(this.objAdicionar);
-    console.log(this.userForm.controls["instancia"].value);
-    let objPost = {
-      entrada: this.userForm.controls["instancia"].value,
-      interacciones: this.objAdicionar
-    };
-    this._httpService.buscarId("instancias", objPost.entrada).subscribe(res => {
-      console.log(res);
-      // this.data = res;
-    });
+    let entrada = this.userForm.controls["instancia"].value;
+    this._httpService
+      .obtener("instancias/" + entrada + "/interacciones/" + this.redes)
+      .subscribe(res => {
+        if (res.length >= 1) {
+          let dataInteracciones = [];
+          for (const iterator of res) {
+            for (const iterac of iterator.Interacciones) {
+              dataInteracciones.push(iterac);
+            }
+          }
+          this.dataInstancia = {
+            _id: res[0]._id,
+            entrada: res[0].entrada,
+            interacciones: dataInteracciones
+          };
+          console.log(this.dataInstancia);
+        } else {
+          console.log("datos vacios");
+        }
+      });
   }
   adicionar(item) {
     if (item.estado) {

@@ -9,7 +9,6 @@ const routes: Routes = [
   {
     path: "",
     component: InstanciasComponent,
-    canActivate: [RoleGuard],
     children: []
   },
   {
