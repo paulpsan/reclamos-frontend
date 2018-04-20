@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { HttpService } from "../../services/http.service";
 import { Subject } from "rxjs/Subject";
+
 
 @Component({
   selector: "app-consultas",
@@ -18,6 +20,7 @@ export class ConsultasComponent implements OnInit {
   public data: any[];
   public mostrar: boolean = false;
   public mostrarDetalle: boolean = false;
+  public filterQuery;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
