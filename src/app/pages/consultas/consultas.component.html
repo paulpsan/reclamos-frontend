@@ -15,8 +15,8 @@
     </div>
 
     <div class="col mt-2" *ngIf="mostrar">
-      <!-- <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover"> -->
-      <table class="table table-hover table-responsive">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+        <!-- <table class="table table-hover table-responsive"> -->
         <thead class="thead-default">
           <tr>
             <th>Nro. Solicitud</th>
@@ -46,21 +46,4 @@
     </div>
 
   </div>
-<div *ngIf="mostrarDetalle">
-  <div class="col" style="text-align: right">
-    <button mat-button (click)="atras(solicitud)" color="primary">
-      <i class="material-icons">undo</i>atras
-    </button>
-  </div>
-
-  <div class="card border-secondary mb-3">
-    <div class="card-header">{{detalleConsula.nombre}}</div>
-    <div class="card-body text-secondary">
-      <!-- <h5 class="card-title">Primary card title</h5> -->
-      <textarea class="form-control" readonly style="height:500px">{{detalleConsula.descripcion}}</textarea>
-      <!-- <p class="card-text">{{detalleConsula.descripcion}}</p> -->
-    </div>
-  </div>
-</div>
-
 </div>

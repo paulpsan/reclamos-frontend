@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { CrearComponent } from "./crear-editar/crear.component";
 import { EditarComponent } from "./crear-editar/editar.component";
 import { RoleGuard } from "../../common/guard/role.guard";
+import { DetalleComponent } from "./detalle/detalle.component";
 
 const routes: Routes = [
   {
@@ -16,7 +17,11 @@ const routes: Routes = [
     component: CrearComponent
   },
 
-  { path: "editar/:id", component: EditarComponent }
+  { path: "editar/:id", component: EditarComponent },
+  {
+    path: "detalle/:id",
+    component: DetalleComponent
+  }
 ];
 
 @NgModule({

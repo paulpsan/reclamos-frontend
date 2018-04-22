@@ -1,19 +1,26 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  AfterViewInit
+} from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { HttpService } from "../../services/http.service";
+import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs/Subject";
-
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-consultas",
   templateUrl: "./consultas.component.html",
   styleUrls: ["./consultas.component.css"]
 })
-export class ConsultasComponent implements OnInit {
-  consultasForm: FormGroup;
+export class ConsultasComponent implements OnInit, AfterViewInit {
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   public identity;
   public tipologias;
   public detalleConsula;
@@ -21,8 +28,11 @@ export class ConsultasComponent implements OnInit {
   public mostrar: boolean = false;
   public mostrarDetalle: boolean = false;
   public filterQuery;
+  public selectedValue;
+  consultasForm: FormGroup;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,22 +41,19 @@ export class ConsultasComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    this._httpService.obtener("tipologias").subscribe(data => {
-      this.tipologias = data;
-    });
-    if (localStorage.getItem("identity")) {
-      this.identity = JSON.parse(localStorage.getItem("identity"));
-    }
-  }
   cargar(itemSelect) {
+    // if (this.subscription) {
+    //   this.data = [];
+    //   this.subscription.unsubscribe();
+    //   this.dtTrigger.unsubscribe();
+    // }
     this.mostrar = true;
+    // console.log(itemSelect);
 
     // setTimeout(() => {
     //   this.mostrar = true;
     // }, 500);
     this.dtOptions = {
-      order: [[0, "desc"]],
       language: {
         search: "Buscar",
         lengthMenu: "Mostrar _MENU_ entradas",
@@ -60,24 +67,29 @@ export class ConsultasComponent implements OnInit {
       }
     };
 
-    this._httpService
+    this.subscription = this._httpService
       .obtenerPor("solicitudes", itemSelect, "tipologias")
       .subscribe(data => {
         if (!this.data) {
-          // this.dtTrigger.next();
+          this.dtTrigger.next();
         }
+        this.rerender();
         this.data = data;
         console.log(data);
       });
   }
   detalle(data) {
-    this.mostrarDetalle = true;
-    this.detalleConsula = data;
+    this.router.navigate(["/consultas/detalle", data._id]);
   }
-  atras(solicitud) {
-    this.mostrar = false;
-    this.mostrarDetalle = false;
-    this.cargar(solicitud);
+
+  rerender(): void {
+    console.log(this.dtElement);
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
   editar(consultas) {
     this.mostrarDetalle = false;
@@ -109,6 +121,17 @@ export class ConsultasComponent implements OnInit {
           });
       }
     });
+  }
+  ngOnInit() {
+    this._httpService.obtener("tipologias").subscribe(data => {
+      this.tipologias = data;
+    });
+    if (localStorage.getItem("identity")) {
+      this.identity = JSON.parse(localStorage.getItem("identity"));
+    }
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
 }
 @Component({

@@ -1,0 +1,21 @@
+<app-header></app-header>
+<div class="container">
+
+  <div>
+    <div class="col" style="text-align: right">
+      <button mat-button routerLink="/consultas" color="primary">
+        <i class="material-icons">undo</i>atras
+      </button>
+    </div>
+
+    <div class="card border-secondary mb-3">
+      <div class="card-header">{{nombre}}</div>
+      <div class="card-body text-secondary">
+        <!-- <h5 class="card-title">Primary card title</h5> -->
+        <textarea class="form-control" readonly style="height:500px">{{descripcion}}</textarea>
+        <!-- <p class="card-text">{{detalleConsula.descripcion}}</p> -->
+      </div>
+    </div>
+  </div>
+
+</div>

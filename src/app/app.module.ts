@@ -19,6 +19,7 @@ import { AuthGuard } from './common/guard/auth.guard';
 import { RoleGuard } from "./common/guard/role.guard";
 
 import { HttpService } from './services/http.service';
+import { DataFilterPipe } from './common/pipes/data-filter.pipe';
 
 
 
@@ -27,7 +28,7 @@ import { HttpService } from './services/http.service';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent,DataFilterPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,

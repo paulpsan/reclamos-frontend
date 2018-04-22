@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from "../../services/http.service";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ExcelService } from "../../services/excel.service";
+import * as moment from "moment";
 
 @Component({
   selector: "app-interacciones",
@@ -65,10 +66,12 @@ export class InteraccionesComponent implements OnInit {
           let dataExcel = {
             Identificador: iterator._id,
             Entrada: iterator.entrada,
-            Creacion: iterator.createdAt,
+            Creacion: moment(iterator.createdAt).format(),
             Red: item.entrada,
             Categoria: item.categoria,
-            SubCategoria: item.subcategoria
+            SubCategoria: item.subcategoria,
+            Usuario: iterator.Usuario.nombres + " " + iterator.Usuario.apaterno,
+            rol: iterator.Usuario.rol
           };
           objExcel.push(dataExcel);
         }
@@ -93,7 +96,8 @@ export class InteraccionesComponent implements OnInit {
     console.log(this.userForm.controls["instancia"].value);
 
     let objInstancia = {
-      entrada: this.userForm.controls["instancia"].value
+      entrada: this.userForm.controls["instancia"].value,
+      fk_usuario: this.identity._id
     };
 
     this._httpService.adicionar("instancias", objInstancia).subscribe(data => {
