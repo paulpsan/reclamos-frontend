@@ -20,6 +20,7 @@
                         <th>Categoria</th>
                         <th>SubCategoria</th>
                         <th>descripcion</th>
+                        <th>Formulario</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,12 @@
                         <td>{{instancia.categoria}}</td>
                         <td>{{instancia.subcategoria}}</td>
                         <td>{{instancia.descripcion}}</td>
+                        <td>
+                            <div *ngIf="instancia.formulario;else templateElse">Si</div>
+                            <ng-template #templateElse>
+                                No
+                            </ng-template>
+                        </td>
                         <td>
                             <button mat-button (click)="editar(instancia)" color="primary">
                                 <i class="fa fa-cogs" aria-hidden="true"></i>

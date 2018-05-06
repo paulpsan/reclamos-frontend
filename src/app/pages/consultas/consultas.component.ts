@@ -54,6 +54,7 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
     //   this.mostrar = true;
     // }, 500);
     this.dtOptions = {
+      pageLength: 10,
       language: {
         search: "Buscar",
         lengthMenu: "Mostrar _MENU_ entradas",

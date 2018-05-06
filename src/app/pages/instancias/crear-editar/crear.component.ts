@@ -64,16 +64,20 @@ export class CrearComponent implements OnInit {
         categoria: this.instanForm.controls["categoria"].value,
         subcategoria: this.instanForm.controls["subcategoria"].value,
         descripcion: this.instanForm.controls["descripcion"].value,
-        formulario: {
-          campo1: this.instanForm.controls["campo1"].value,
-          campo2: this.instanForm.controls["campo2"].value,
-          campo3: this.instanForm.controls["campo3"].value,
-          campo4: this.instanForm.controls["campo4"].value,
-          campo5: this.instanForm.controls["campo5"].value,
-          campo6: this.instanForm.controls["campo6"].value,
-          campo7: this.instanForm.controls["campo7"].value,
-          campo8: this.instanForm.controls["campo8"].value
-        }
+        formulario: [
+          {
+            campo: [
+              this.instanForm.controls["campo1"].value,
+              this.instanForm.controls["campo2"].value,
+              this.instanForm.controls["campo3"].value,
+              this.instanForm.controls["campo4"].value,
+              this.instanForm.controls["campo5"].value,
+              this.instanForm.controls["campo6"].value,
+              this.instanForm.controls["campo7"].value,
+              this.instanForm.controls["campo8"].value
+            ]
+          }
+        ]
       };
     }
 

@@ -22,9 +22,14 @@ export class InteraccionesComponent implements OnInit {
   public mostrarReporte: Boolean = false;
   public objAdicionar = [];
   public data = [];
+  public dataForm = [];
+  public valorForm = [];
   public redes;
   public dataInstancia = {};
   public identity;
+  public itemSelect;
+  public showFormulario: Boolean = false;
+  public showForm: Boolean = false;
   userForm: FormGroup;
   reporteForm: FormGroup;
 
@@ -70,9 +75,34 @@ export class InteraccionesComponent implements OnInit {
             Red: item.entrada,
             Categoria: item.categoria,
             SubCategoria: item.subcategoria,
-            Usuario: iterator.Usuario.nombres + " " + iterator.Usuario.apaterno,
-            rol: iterator.Usuario.rol
+            Usuario: "",
+            rol: ""
           };
+          if (iterator.Usuario) {
+            dataExcel.Usuario =
+              iterator.Usuario.nombres + " " + iterator.Usuario.apaterno;
+            dataExcel.rol = iterator.Usuario.rol;
+          }
+          if (item.InstanciaInteracciones.formulario) {
+            let formulario = item.InstanciaInteracciones.formulario;
+            console.log(formulario);
+            var formularioObj = {};
+            for (const key in formulario[0].campo) {
+              if (formulario[0].campo[key] != "") {
+                let cadenaObj =
+                  '{"' +
+                  formulario[0].campo[key] +
+                  '":"' +
+                  formulario[1].valor[key] +
+                  '"}';
+                formularioObj = Object.assign(
+                  formularioObj,
+                  JSON.parse(cadenaObj)
+                );
+              }
+            }
+            dataExcel = Object.assign(dataExcel, formularioObj);
+          }
           objExcel.push(dataExcel);
         }
       }
@@ -106,7 +136,8 @@ export class InteraccionesComponent implements OnInit {
       for (const iterator of this.objAdicionar) {
         let objPost = {
           fk_instancia: data._id,
-          fk_interaccion: iterator._id
+          fk_interaccion: iterator._id,
+          formulario: this.itemSelect.formulario
         };
         this._httpService
           .adicionar("instancias/" + data._id + "/interacciones", objPost)
@@ -149,12 +180,25 @@ export class InteraccionesComponent implements OnInit {
         }
       });
   }
-  adicionar(item) {
-    if (item.estado) {
-      this.objAdicionar.push(item);
+  selectItem(item) {
+    this.itemSelect = item;
+    this.itemSelect.estado = !this.itemSelect.estado;
+    if (this.itemSelect.estado) {
+      console.log("adicionadoo!!", this.itemSelect);
+      if (this.itemSelect.formulario) {
+        this.dataForm = this.itemSelect.formulario[0].campo;
+        console.log(this.dataForm);
+        this.showForm = true;
+      }
+      this.objAdicionar.push(this.itemSelect);
+      if (this.itemSelect) {
+        this.showFormulario = true;
+      }
     } else {
-      let pos = this.objAdicionar.indexOf(item);
+      let pos = this.objAdicionar.indexOf(this.itemSelect);
       let eliminado = this.objAdicionar.splice(pos, 1);
+      this.showFormulario = false;
+      this.showForm = false;
       console.log(eliminado, this.objAdicionar);
       // this.objAdicionar = eliminado;
     }
@@ -176,6 +220,7 @@ export class InteraccionesComponent implements OnInit {
             subcategoria: iterator.subcategoria,
             descripcion: iterator.descripcion,
             entrada: iterator.entrada,
+            formulario: iterator.formulario,
             estado: false
           };
           this.data.push(obj);
@@ -228,5 +273,10 @@ export class InteraccionesComponent implements OnInit {
   iniciar() {
     this.showInteraccion = true;
     this.showInst = false;
+  }
+  guardarForm() {
+    this.itemSelect.formulario.push({ valor: this.valorForm });
+    this.showForm = false;
+    console.log(this.itemSelect);
   }
 }

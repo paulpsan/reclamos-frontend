@@ -67,14 +67,14 @@ export class EditarComponent implements OnInit {
         subcategoria: this.instancia.subcategoria,
         descripcion: this.instancia.descripcion,
         checkForm: this.checkForm,
-        campo1: this.instancia.formulario.campo1,
-        campo2: this.instancia.formulario.campo2,
-        campo3: this.instancia.formulario.campo3,
-        campo4: this.instancia.formulario.campo4,
-        campo5: this.instancia.formulario.campo5,
-        campo6: this.instancia.formulario.campo6,
-        campo7: this.instancia.formulario.campo7,
-        campo8: this.instancia.formulario.campo8
+        campo1: this.instancia.formulario[0].campo[0],
+        campo2: this.instancia.formulario[0].campo[1],
+        campo3: this.instancia.formulario[0].campo[2],
+        campo4: this.instancia.formulario[0].campo[3],
+        campo5: this.instancia.formulario[0].campo[4],
+        campo6: this.instancia.formulario[0].campo[5],
+        campo7: this.instancia.formulario[0].campo[6],
+        campo8: this.instancia.formulario[0].campo[7]
       });
     } else {
       this.instanForm.setValue({
@@ -107,16 +107,20 @@ export class EditarComponent implements OnInit {
           categoria: this.instanForm.controls["categoria"].value,
           subcategoria: this.instanForm.controls["subcategoria"].value,
           descripcion: this.instanForm.controls["descripcion"].value,
-          formulario: {
-            campo1: this.instanForm.controls["campo1"].value,
-            campo2: this.instanForm.controls["campo2"].value,
-            campo3: this.instanForm.controls["campo3"].value,
-            campo4: this.instanForm.controls["campo4"].value,
-            campo5: this.instanForm.controls["campo5"].value,
-            campo6: this.instanForm.controls["campo6"].value,
-            campo7: this.instanForm.controls["campo7"].value,
-            campo8: this.instanForm.controls["campo8"].value
-          }
+          formulario: [
+            {
+              campo: [
+                this.instanForm.controls["campo1"].value,
+                this.instanForm.controls["campo2"].value,
+                this.instanForm.controls["campo3"].value,
+                this.instanForm.controls["campo4"].value,
+                this.instanForm.controls["campo5"].value,
+                this.instanForm.controls["campo6"].value,
+                this.instanForm.controls["campo7"].value,
+                this.instanForm.controls["campo8"].value
+              ]
+            }
+          ]
         };
       } else {
         instancia = {

@@ -1,7 +1,6 @@
 import { Component, Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { GLOBAL } from "./global";
 
@@ -96,7 +95,7 @@ export class HttpService {
       "Content-Type": "application/json; charset=utf-8"
     });
     return this._http
-      .post(this.url+url, objeto, { headers })
+      .post(this.url + url, objeto, { headers })
       .map((res: Response) => {
         return res;
       })
