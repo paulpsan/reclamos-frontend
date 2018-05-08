@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div class="container">
+  <div class="form-inline mt-4">
+
+    <form [formGroup]="reporteForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="col-2 col-form-label">canales</label>
+        <div class="col-4">
+          <select class="form-control" formControlName="canal">
+            <option selected>--Seleccione--</option>
+            <!-- <option value="TODO">TODO</option> -->
+            <option *ngFor="let value of canales">{{value}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <button mat-button [disabled]="!reporteForm.valid" type="submit" color="primary">
+            <mat-icon mat-list-icon>done</mat-icon>
+            Grafica
+          </button>
+          <button mat-button routerLink="/interacciones" color="warn">
+            <mat-icon mat-list-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div class="row justify-content-md-center m-2">
+    <div class="card-deck">
+      <div *ngIf="showReporte" class="card">
+        <h4>Graficas por Canales</h4>
+        <div class="card-body">
+          <chart-bar [data]="dataGeneral$"></chart-bar>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+      <div *ngIf="showReporte" class="card">
+        <div class="card-body">
+          <chart-pie [data]="dataGeneral$"></chart-pie>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-md-center m-2">
+    <div class="card-deck">
+      <div *ngIf="showReporte" class="card">
+        <h4>Grafica de {{canal}}</h4>
+        <div class="card-body">
+          <chart-bar [data]="data$"></chart-bar>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+      <div *ngIf="showReporte" class="card">
+        <div class="card-body">
+          <chart-pie [data]="data$"></chart-pie>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

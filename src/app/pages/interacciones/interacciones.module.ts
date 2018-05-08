@@ -12,9 +12,10 @@ import { HttpService } from "../../services/http.service";
 import { ExcelService } from "../../services/excel.service";
 
 import { InteraccionesComponent } from "./interacciones.component";
-import { InteraccionComponent } from "./interaccion/interaccion.component";
-import { CrearComponent } from "./interaccion/crear-editar/crear.component";
-import { EditarComponent } from "./interaccion/crear-editar/editar.component";
+import { ReporteComponent } from "./reporte/reporte.component";
+import { ChartsModule } from "ng2-charts";
+import { BarComponent } from "./reporte/charts/bar.component";
+import { PieComponent } from "./reporte/charts/pie.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -23,13 +24,14 @@ import { EditarComponent } from "./interaccion/crear-editar/editar.component";
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    ChartsModule
   ],
   declarations: [
     InteraccionesComponent,
-    InteraccionComponent,
-    CrearComponent,
-    EditarComponent
+    ReporteComponent,
+    BarComponent,
+    PieComponent
   ],
   providers: [
     {

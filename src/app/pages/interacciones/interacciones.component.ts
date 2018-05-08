@@ -24,7 +24,7 @@ export class InteraccionesComponent implements OnInit {
   public data = [];
   public dataForm = [];
   public valorForm = [];
-  public redes;
+  public canal;
   public dataInstancia = {};
   public identity;
   public itemSelect;
@@ -114,7 +114,7 @@ export class InteraccionesComponent implements OnInit {
 
   mostrar(cadena: string) {
     this.showInstancia = !this.showInstancia;
-    this.redes = cadena;
+    this.canal = cadena;
     this.showInteraccion = false;
     this.showTable = false;
     this.showInst = false;
@@ -127,6 +127,7 @@ export class InteraccionesComponent implements OnInit {
 
     let objInstancia = {
       entrada: this.userForm.controls["instancia"].value,
+      canal: this.canal.toUpperCase(),
       fk_usuario: this.identity._id
     };
 
@@ -160,7 +161,7 @@ export class InteraccionesComponent implements OnInit {
     this.showInst = true;
     let entrada = this.userForm.controls["instancia"].value;
     this._httpService
-      .obtener("instancias/" + entrada + "/interacciones/" + this.redes)
+      .obtener("instancias/" + entrada + "/interacciones/" + this.canal)
       .subscribe(res => {
         if (res.length >= 1) {
           let dataInteracciones = [];

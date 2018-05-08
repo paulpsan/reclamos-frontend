@@ -4,7 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 // import { CrearComponent } from "./crear-editar/crear.component";
 // import { EditarComponent } from "./crear-editar/editar.component";
 import { RoleGuard } from "../../common/guard/role.guard";
-import { InteraccionComponent } from "./interaccion/interaccion.component";
+import { ReporteComponent } from "./reporte/reporte.component";
 
 const routes: Routes = [
   {
@@ -12,12 +12,7 @@ const routes: Routes = [
     component: InteraccionesComponent,
     children: []
   },
-  {
-    path: "interaccion",
-    component: InteraccionComponent,
-    // canActivate: [RoleGuard],
-  }
-  // {
+  { path: "reporte", component: ReporteComponent }
   //   path: "adicionar",
   //   component: CrearComponent,
   //   canActivate: [RoleGuard]
