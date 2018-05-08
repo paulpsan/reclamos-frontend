@@ -13,12 +13,12 @@ export class ReporteComponent implements OnInit {
   public departamentos = GLOBAL.departamentos;
   public cadena: string;
   public showReporte: Boolean = false;
-  public departamento;
   public showForm: Boolean = false;
+  public departamento;
   public desde;
   public hasta;
-
   data$;
+  dataGeneral$;
   reporteForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
@@ -32,23 +32,25 @@ export class ReporteComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.departamento);
+    console.log(this.reporteForm.controls["departamento"].value);
+    this.departamento = this.reporteForm.controls["departamento"].value;
     this.showReporte = false;
-    this.data$ = this.reporteForm.controls["departamento"].value;
     this._httpService
-      .obtenerReporte(
-        "reclamos/reportes",
-        this.reporteForm.controls["departamento"].value
-      )
+      .obtenerReporte("reclamos/reportes", this.departamento)
       .subscribe(resp => {
-        this.data$ = resp;
-        this.showReporte = true;
         console.log(resp);
+        this.data$ = resp;
+        this._httpService
+          .obtenerReporte("reclamos/reportes", "TODO")
+          .subscribe(response => {
+            this.dataGeneral$ = response;
+            this.showReporte = true;
+            console.log(response);
+          });
       });
-    // console.log(this.data$);
   }
   excel() {
-    this.showForm=true;
-    console.log(this.desde,this.hasta)
+    this.showForm = true;
+    console.log(this.desde, this.hasta);
   }
 }

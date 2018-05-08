@@ -8,6 +8,7 @@
         <div class="col-4">
           <select class="form-control" formControlName="departamento">
             <option selected>--Seleccione--</option>
+            <!-- <option value="TODO">TODO</option> -->
             <option *ngFor="let dep of departamentos">{{dep}}</option>
           </select>
         </div>
@@ -24,10 +25,32 @@
       </div>
     </form>
   </div>
-
+  
   <div class="row justify-content-md-center m-2">
     <div class="card-deck">
       <div *ngIf="showReporte" class="card">
+        <h4>Graficas por Departamento</h4>
+        <div class="card-body">
+          <chart-bar [data]="dataGeneral$"></chart-bar>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+      <div *ngIf="showReporte" class="card">
+        <div class="card-body">
+          <chart-pie [data]="dataGeneral$"></chart-pie>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-md-center m-2">
+    <div class="card-deck">
+      <div *ngIf="showReporte" class="card">
+        <h4>Grafica de {{departamento}}</h4>
         <div class="card-body">
           <chart-bar [data]="data$"></chart-bar>
         </div>
@@ -45,5 +68,4 @@
       </div>
     </div>
   </div>
-
 </div>
