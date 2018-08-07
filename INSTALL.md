@@ -1,4 +1,4 @@
-# SISTEMA DE RECLAMOS CENTRO DE CONTACTO
+# SISTEMA DE RECLAMOS CENTRO DE CONTACTO (FRONTEND)
 
 ## Instalación de dependencias
 
@@ -38,7 +38,7 @@ Para verificar la instalación: $ ng --version
 
 Clonar el proyecto desde GitLab
 
-> $ git clone https://github.com/paulpsan/reclamos-frontend 
+> $ git clone https://github.com/paulpsan/reclamos-frontend
 
 Ingresar al directorio del proyecto clonado reclamos-frontend
 
@@ -68,4 +68,27 @@ Compilar el proyecto
 
 La compilación creará la carpeta dist, lista para su publicación.
 
+\_configuracion de APACHE
 
+```json
+<VirtualHost *:80>
+    ServerName contacto.ddeduclpz.gob.bo
+
+    DocumentRoot /var/www/frontend
+
+    <Directory /var/www/frontend>
+        RewriteEngine on
+
+        # Don't rewrite files or directories
+        RewriteCond %{REQUEST_FILENAME} -f [OR]
+        RewriteCond %{REQUEST_FILENAME} -d
+        RewriteRule ^ - [L]
+
+        # Rewrite everything else to index.html
+        # to allow html5 state links
+        RewriteRule ^ index.html [L]
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
