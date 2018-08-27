@@ -1,10 +1,11 @@
 
 
 <div style="display: block">
-        <canvas baseChart width="450" height="500"
+        <canvas baseChart width="550" height="500"
                 [data]="pieChartData"
                 [labels]="pieChartLabels"
                 [chartType]="pieChartType"
+                [options]="pieChartOptions"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)">
         </canvas>

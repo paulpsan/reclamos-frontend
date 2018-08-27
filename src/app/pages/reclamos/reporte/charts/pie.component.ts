@@ -14,6 +14,11 @@ export class PieComponent {
     "Css",
     "Otros"
   ];
+  public pieChartOptions: any = {
+    scaleShowVerticalLines: true,
+    responsive: true,
+    legend: { position: 'right' }
+  };
   public pieChartData: number[] = [
     Math.round(Math.random() * 100),
     Math.round(Math.random() * 100),
@@ -35,7 +40,7 @@ export class PieComponent {
     console.log(e);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ngOnChanges() {
     delete this.pieChartLabels;
     delete this.pieChartData;

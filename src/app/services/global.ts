@@ -1,5 +1,5 @@
 export const GLOBAL = {
-  url: "http://localhost:9000/api/",
+  url: "http://localhost:9001/api/",
   // url: "https://contacto.ddeduclpz.gob.bo/api/",
   TOGGLE: true,
   roles: ["ADMIN", "AGENTE", "SUPERVISOR", "REPORTES", "INVITADO"],

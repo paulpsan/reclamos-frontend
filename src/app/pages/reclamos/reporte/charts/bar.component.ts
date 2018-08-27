@@ -13,7 +13,8 @@ export class BarComponent {
 
   public barChartOptions: any = {
     scaleShowVerticalLines: true,
-    responsive: true
+    responsive: true,
+    legend: { position: 'right' }
   };
 
   public barChartLabels: string[];
