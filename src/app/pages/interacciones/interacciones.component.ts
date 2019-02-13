@@ -244,10 +244,12 @@ export class InteraccionesComponent implements OnInit {
             subcategoria: iterator.subcategoria,
             descripcion: iterator.descripcion,
             entrada: iterator.entrada,
+            formulario: iterator.formulario,
             estado: false
           };
           this.data.push(obj);
         }
+      console.log(this.data);
       });
   }
   denuncia(entrada: string) {
@@ -265,6 +267,7 @@ export class InteraccionesComponent implements OnInit {
             subcategoria: iterator.subcategoria,
             descripcion: iterator.descripcion,
             entrada: iterator.entrada,
+            formulario: iterator.formulario,
             estado: false
           };
           this.data.push(obj);
