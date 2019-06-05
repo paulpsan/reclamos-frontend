@@ -46,7 +46,6 @@ export class InteraccionesComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem("identity")) {
       this.identity = JSON.parse(localStorage.getItem("identity"));
-      console.log(this.identity);
     }
     this.reporteForm = new FormGroup({
       desde: new FormControl("", Validators.required),
@@ -64,14 +63,13 @@ export class InteraccionesComponent implements OnInit {
       hasta: this.reporteForm.controls["hasta"].value
     };
     this._httpService.post("instancias/reporte", obj).subscribe(data => {
-      console.log(data);
       let objExcel = [];
       for (const iterator of data) {
         for (const item of iterator.Interacciones) {
           let dataExcel = {
             Identificador: iterator._id,
             Entrada: iterator.entrada,
-            Creacion: moment(iterator.createdAt).format(),
+            Creacion: iterator.createdAt,
             Red: item.entrada,
             Categoria: item.categoria,
             SubCategoria: item.subcategoria,
@@ -88,7 +86,7 @@ export class InteraccionesComponent implements OnInit {
             console.log(formulario);
             var formularioObj = {};
             for (const key in formulario[0].campo) {
-              if (formulario[0].campo[key] != "") {
+              if (formulario[0].campo[key] != ""&& formulario[1]) {
                 let cadenaObj =
                   '{"' +
                   formulario[0].campo[key] +
@@ -106,8 +104,6 @@ export class InteraccionesComponent implements OnInit {
           objExcel.push(dataExcel);
         }
       }
-
-      console.log(objExcel);
       this.excelService.exportAsExcelFile(objExcel, "INTERACCIONES");
     });
   }
@@ -122,8 +118,6 @@ export class InteraccionesComponent implements OnInit {
   }
 
   finalizar() {
-    console.log(this.objAdicionar);
-    console.log(this.userForm.controls["instancia"].value);
 
     let objInstancia = {
       entrada: this.userForm.controls["instancia"].value,
@@ -132,8 +126,6 @@ export class InteraccionesComponent implements OnInit {
     };
 
     this._httpService.adicionar("instancias", objInstancia).subscribe(data => {
-      console.log(data);
-
       for (const iterator of this.objAdicionar) {
         let objPost = {
           fk_instancia: data._id,
@@ -249,7 +241,6 @@ export class InteraccionesComponent implements OnInit {
           };
           this.data.push(obj);
         }
-      console.log(this.data);
       });
   }
   denuncia(entrada: string) {
@@ -281,6 +272,5 @@ export class InteraccionesComponent implements OnInit {
   guardarForm() {
     this.itemSelect.formulario.push({ valor: this.valorForm });
     this.showForm = false;
-    console.log(this.itemSelect);
   }
 }
